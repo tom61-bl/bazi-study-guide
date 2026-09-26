@@ -325,10 +325,25 @@ body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-heig
 .wx-flow{fill:none;stroke-width:4;stroke-linecap:round;opacity:0;stroke-dasharray:14 9;pointer-events:none}
 .wx-flow.show{opacity:.82;animation:wxflow 1.1s linear infinite}
 @keyframes wxflow{to{stroke-dashoffset:-46}}
-.wx-pulse{transform-origin:center;transform-box:fill-box;animation:wxpulse .85s ease}
-@keyframes wxpulse{0%{transform:scale(1)}35%{transform:scale(1.14)}100%{transform:scale(1)}}
+.wx-pulse circle{animation:wxpulse .85s ease}
+@keyframes wxpulse{0%{stroke-width:3}35%{stroke-width:9}100%{stroke-width:3}}
 .wx-label{font-family:var(--sans);font-size:12px;fill:var(--ink-3);letter-spacing:.15em}
 @media(max-width:880px){.world-stage{grid-template-columns:1fr}.world-controls{grid-template-columns:1fr 1fr 1fr}}
+
+
+.world-tabs{display:flex;justify-content:center;gap:6px;margin:0 0 18px;flex-wrap:wrap}
+.world-tab{font-family:var(--sans);font-size:12.5px;letter-spacing:.12em;padding:7px 20px;border-radius:20px;
+ border:1px solid var(--line);background:var(--card);color:var(--ink-2);cursor:pointer;transition:.18s}
+.world-tab:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+.world-tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.world-scene{display:none}
+.world-scene.active{display:block;animation:fade .3s ease}
+.gan-node circle,.zhi-node circle,.wx-node circle{transition:stroke-width .2s,filter .2s}
+.gan-node:hover circle,.zhi-node:hover circle,.wx-node:hover circle{filter:brightness(1.08)}
+.gan-node text.gan-char,.zhi-node text.zhi-char,.wx-node text.wx-char{font-family:var(--serif);font-weight:700}
+.wx-tri{fill:none;stroke-width:3.5;stroke-linejoin:round;opacity:0;stroke-dasharray:12 8;pointer-events:none}
+.wx-tri.show{opacity:.75;animation:wxflow 1.2s linear infinite}
+.wx-dir{font-family:var(--sans);font-size:11px;fill:var(--ink-3);letter-spacing:.12em}
 
 </style>
 </head>
@@ -351,31 +366,68 @@ body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-heig
  <div class="wrap">
   <div class="world-wrap">
    <div class="world-hero">
-    <h2>五行转化世界</h2>
-    <p>五行不是五个字，是自然界能量的转化链。拖动一个元素到另一个上，看看会发生什么。</p>
+    <h2>关系世界</h2>
+    <p>五行 · 天干 · 地支——每一条关系都有它在自然界中的理由。拖动元素做实验，或播放转化链。</p>
    </div>
-   <div class="world-stage">
-    <div class="world-svg-box">
-     <svg id="worldSvg" viewBox="0 0 600 600" aria-label="五行转化盘"></svg>
+   <div class="world-tabs">
+    <button class="world-tab active" data-scene="wuxing">五行转化</button>
+    <button class="world-tab" data-scene="gan">天干合冲</button>
+    <button class="world-tab" data-scene="zhi">地支关系</button>
+   </div>
+   <div class="world-scene active" id="scene-wuxing">
+    <div class="world-stage">
+     <div class="world-svg-box"><svg id="worldSvg" viewBox="0 0 600 600"></svg></div>
+     <div class="world-side">
+      <div class="world-controls">
+       <button class="world-btn primary" data-play="wuxing:sheng">▶ 播放相生链</button>
+       <button class="world-btn" data-play="wuxing:ke">▶ 播放相克链</button>
+       <button class="world-btn" data-reset="wuxing">重置画面</button>
+      </div>
+      <div class="world-principle"><div class="wp-label">自然原理</div>
+       <div class="wp-title" id="wpTitle">等待你的实验</div>
+       <div class="wp-text" id="wpText">拖动任意元素到另一个元素上，或点击上方按钮播放转化链。</div></div>
+      <div class="world-tip">相生：木→火→土→金→水→木<br>相克：木→土→水→火→金→木</div>
+     </div>
     </div>
-    <div class="world-side">
-     <div class="world-controls">
-      <button class="world-btn primary" id="playSheng">▶ 播放相生链</button>
-      <button class="world-btn" id="playKe">▶ 播放相克链</button>
-      <button class="world-btn" id="resetWorld">重置画面</button>
+   </div>
+   <div class="world-scene" id="scene-gan">
+    <div class="world-stage">
+     <div class="world-svg-box"><svg id="ganSvg" viewBox="0 0 600 600"></svg></div>
+     <div class="world-side">
+      <div class="world-controls">
+       <button class="world-btn primary" data-play="gan:wuhe">▶ 播放五合</button>
+       <button class="world-btn" data-play="gan:sichong">▶ 播放四冲</button>
+       <button class="world-btn" data-reset="gan">重置画面</button>
+      </div>
+      <div class="world-principle"><div class="wp-label">天干关系</div>
+       <div class="wp-title" id="ganTitle">等待你的实验</div>
+       <div class="wp-text" id="ganText">五合是阴阳相吸、四冲是方位正对。拖动一个天干到另一个上，看看它们是什么关系。</div></div>
+      <div class="world-tip">五合：甲己·乙庚·丙辛·丁壬·戊癸<br>四冲：甲庚·乙辛·丙壬·丁癸（戊己居中无冲）</div>
      </div>
-     <div class="world-principle" id="wpBox">
-      <div class="wp-label">自然原理</div>
-      <div class="wp-title" id="wpTitle">等待你的实验</div>
-      <div class="wp-text" id="wpText">拖动任意元素到另一个元素上，或点击上方按钮播放转化链。每一条关系，都有它在自然界中的理由。</div>
+    </div>
+   </div>
+   <div class="world-scene" id="scene-zhi">
+    <div class="world-stage">
+     <div class="world-svg-box"><svg id="zhiSvg" viewBox="0 0 600 600"></svg></div>
+     <div class="world-side">
+      <div class="world-controls" style="grid-template-columns:1fr 1fr">
+       <button class="world-btn primary" data-play="zhi:liuchong">▶ 六冲</button>
+       <button class="world-btn" data-play="zhi:liuhe">▶ 六合</button>
+       <button class="world-btn" data-play="zhi:sanhe">▶ 三合局</button>
+       <button class="world-btn" data-play="zhi:sanhui">▶ 三会方</button>
+       <button class="world-btn" data-reset="zhi" style="grid-column:1/-1">重置画面</button>
+      </div>
+      <div class="world-principle"><div class="wp-label">地支关系</div>
+       <div class="wp-title" id="zhiTitle">等待你的实验</div>
+       <div class="wp-text" id="zhiText">六冲是正对面相撞，六合是相邻相合，三合是生命周期三点，三会是同季节三方。拖动地支做实验。</div></div>
+      <div class="world-tip">六冲：子午·丑未·寅申·卯酉·辰戌·巳亥<br>六合：子丑·寅亥·卯戌·辰酉·巳申·午未</div>
      </div>
-     <div class="world-tip">相生：木→火→土→金→水→木（能量转化）<br>相克：木→土→水→火→金→木（相互制约）</div>
     </div>
    </div>
   </div>
  </div>
 </section>
- <section class="pane" id="pane-notes">
+ <section class="pane" id="pane-notes"><section class="pane" id="pane-notes">
   <div class="wrap">
    <div class="note-anchors">
     <a href="#ch1">壹 · 阴阳五行</a><a href="#ch2">贰 · 十天干</a><a href="#ch3">叁 · 十二地支</a>
@@ -1561,138 +1613,227 @@ navBtns.forEach(function(b){
 })();
 
 
-/* ===== 五行转化世界 ===== */
-(function(){
- var svg=document.getElementById('worldSvg');
- if(!svg)return;
+
+
+
+var worlds={};
+function createRelationWorld(cfg){
+ var svg=document.getElementById(cfg.svgId);if(!svg)return;
  var NS='http://www.w3.org/2000/svg';
- var POS={
-  mu:{x:110,y:300,icon:'\u{1F333}',char:'木',virtue:'仁',nature:'树木，主生发'},
-  huo:{x:300,y:105,icon:'\u{1F525}',char:'火',virtue:'礼',nature:'火焰，主炎上'},
-  tu:{x:300,y:300,icon:'\u{26F0}',char:'土',virtue:'信',nature:'大地，主承载'},
-  jin:{x:490,y:300,icon:'\u{1FA99}',char:'金',virtue:'义',nature:'金属，主肃杀'},
-  shui:{x:300,y:495,icon:'\u{1F4A7}',char:'水',virtue:'智',nature:'流水，主润下'}
- };
- var COLOR={mu:'#3f8f6b',huo:'#c44532',tu:'#c29a3e',jin:'#8d8674',shui:'#35587d'};
- var SHENG=[
-  ['mu','huo','树木可以燃烧，火由木而生。'],
-  ['huo','tu','火燃尽成灰烬，归于土中。'],
-  ['tu','jin','金属矿石蕴藏于土壤之中。'],
-  ['jin','shui','金属在清晨冷凝，表面凝出水珠。'],
-  ['shui','mu','水滋润树木，使其生长。']
- ];
- var KE=[
-  ['mu','tu','树根穿破土壤，向深处生长。'],
-  ['tu','shui','堤坝（土）阻挡水流的去路。'],
-  ['shui','huo','水浇灭火焰，使其熄灭。'],
-  ['huo','jin','烈火熔化金属，改变其形。'],
-  ['jin','mu','斧头（金）砍伐树木。']
- ];
- var lines={},nodes={},origPos={};
- function el(tag,attrs){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);return e;}
- // 背景方位圈
- svg.appendChild(el('circle',{cx:300,cy:300,r:240,fill:'none',stroke:'#d8cdb4','stroke-width':1,'stroke-dasharray':'4 6'}));
- svg.appendChild(el('circle',{cx:300,cy:300,r:120,fill:'none',stroke:'#d8cdb4','stroke-width':1,'stroke-dasharray':'4 6'}));
- [['东·木',55,305],['南·火',300,48],['西·金',545,305],['北·水',300,558]].forEach(function(d){
-  var t=el('text',{x:d[1],y:d[2],'text-anchor':'middle','class':'wx-label'});t.textContent=d[0];svg.appendChild(t);
+ var nodes={},lines={},tris={},orig={};
+ function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+ if(cfg.bgRing){cfg.bgRing.forEach(function(r){svg.appendChild(el('circle',{cx:300,cy:300,r:r,fill:'none',stroke:'#d8cdb4','stroke-width':1,'stroke-dasharray':'4 6'}));});}
+ if(cfg.labels){cfg.labels.forEach(function(d){var t=el('text',{x:d[1],y:d[2],'text-anchor':'middle','class':'wx-dir'});t.textContent=d[0];svg.appendChild(t);});}
+ Object.keys(cfg.groups).forEach(function(gname){
+  var g=cfg.groups[gname];
+  (g.items||[]).forEach(function(item,i){
+   if(item.length<=3){
+    var a=cfg.nodes[item[0]],b=cfg.nodes[item[1]];
+    var l=el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:g.color,'class':'wx-flow'});
+    svg.appendChild(l);lines[gname+'_'+i]=l;
+   }else{
+    var p0=cfg.nodes[item[0]],p1=cfg.nodes[item[1]],p2=cfg.nodes[item[2]];
+    var tri=el('polygon',{points:p0.x+','+p0.y+' '+p1.x+','+p1.y+' '+p2.x+','+p2.y,stroke:g.color,'class':'wx-tri'});
+    svg.appendChild(tri);tris[gname+'_'+i]=tri;
+   }
+  });
  });
- // 预画关系线
- function addLine(a,b,color,key){
-  var l=el('line',{x1:POS[a].x,y1:POS[a].y,x2:POS[b].x,y2:POS[b].y,stroke:color,'class':'wx-flow'});
-  svg.appendChild(l);lines[key]=l;
- }
- SHENG.forEach(function(s,i){addLine(s[0],s[1],COLOR[s[0]],'s_'+i);});
- KE.forEach(function(k,i){addLine(k[0],k[1],'#b3402b','k_'+i);});
- // 画节点
- Object.keys(POS).forEach(function(k){
-  var p=POS[k];origPos[k]={x:p.x,y:p.y};
-  var g=el('g',{'class':'wx-node','data-k':k,transform:'translate('+p.x+','+p.y+')'});
-  g.appendChild(el('circle',{cx:0,cy:0,r:46,fill:COLOR[k]+'22',stroke:COLOR[k],'stroke-width':3}));
-  var ic=el('text',{x:0,y:-6,'text-anchor':'middle','font-size':'26'});ic.textContent=p.icon;g.appendChild(ic);
-  var ch=el('text',{x:0,y:22,'text-anchor':'middle','font-size':'18','font-weight':'700',fill:COLOR[k]});ch.textContent=p.char;g.appendChild(ch);
+ Object.keys(cfg.nodes).forEach(function(k){
+  var n=cfg.nodes[k];orig[k]={x:n.x,y:n.y};
+  var g=el('g',{'class':cfg.nodeClass,'data-k':k,transform:'translate('+n.x+','+n.y+')'});
+  g.appendChild(el('circle',{cx:0,cy:0,r:n.r||34,fill:(n.color||'#888')+'22',stroke:n.color||'#888','stroke-width':3}));
+  if(n.icon){var ic=el('text',{x:0,y:-(n.r||34)*0.3,'text-anchor':'middle','font-size':n.iconSize||18});ic.textContent=n.icon;g.appendChild(ic);}
+  var ch=el('text',{x:0,y:(n.icon?(n.r||34)*0.5:6),'text-anchor':'middle','class':cfg.charClass,'font-size':n.charSize||18,fill:n.color||'#333'});ch.textContent=k;g.appendChild(ch);
   svg.appendChild(g);nodes[k]=g;
  });
- var wpTitle=document.getElementById('wpTitle'),wpText=document.getElementById('wpText');
- function showPrinciple(title,text){wpTitle.textContent=title;wpText.textContent=text;}
- function resetLines(){Object.keys(lines).forEach(function(k){lines[k].classList.remove('show');});
+ var titleEl=document.getElementById(cfg.titleId),textEl=document.getElementById(cfg.textId);
+ function show(t,x){if(titleEl)titleEl.textContent=t;if(textEl)textEl.textContent=x;}
+ function reset(){Object.keys(lines).forEach(function(k){lines[k].classList.remove('show');});
+  Object.keys(tris).forEach(function(k){tris[k].classList.remove('show');});
   Object.keys(nodes).forEach(function(k){nodes[k].classList.remove('wx-pulse');});}
- function pulse(k){nodes[k].classList.remove('wx-pulse');void nodes[k].offsetWidth;nodes[k].classList.add('wx-pulse');}
- // 播放链
+ function pulse(k){if(!nodes[k])return;nodes[k].classList.remove('wx-pulse');void nodes[k].offsetWidth;nodes[k].classList.add('wx-pulse');}
  var playing=false;
- function playChain(arr,label){
-  if(playing)return;playing=true;resetLines();
-  var i=0;
+ function playGroup(gname){
+  if(playing)return;playing=true;reset();
+  var g=cfg.groups[gname];var items=g.items||[];var i=0;
   function step(){
-   if(i>=arr.length){playing=false;
-    showPrinciple('完整'+label+'闭环','五行'+label+'是一个循环：能量不断转化、相互制约，生生不息。理解了闭环，就不必背顺序。');
-    return;}
-   var a=arr[i][0],b=arr[i][1],text=arr[i][2];
-   var key=(label==='相生'?'s_':'k_')+i;
-   lines[key].classList.add('show');pulse(b);
-   showPrinciple(POS[a].char+(label==='相生'?'生':'克')+POS[b].char,text);
-   i++;setTimeout(step,1500);
+   if(i>=items.length){playing=false;if(g.doneText)show(g.doneTitle||gname,g.doneText);return;}
+   var item=items[i];
+   if(item.length<=3){lines[gname+'_'+i].classList.add('show');pulse(item[1]);show(item[0]+g.sep+item[1],item[2]||'');}
+   else{tris[gname+'_'+i].classList.add('show');item.slice(0,3).forEach(pulse);show(item[0]+item[1]+item[2]+' '+g.label,item[3]||'');}
+   i++;setTimeout(step,g.interval||1500);
   }
   step();
  }
- document.getElementById('playSheng').addEventListener('click',function(){playChain(SHENG,'相生');});
- document.getElementById('playKe').addEventListener('click',function(){playChain(KE,'相克');});
- document.getElementById('resetWorld').addEventListener('click',function(){resetLines();
-  showPrinciple('等待你的实验','拖动任意元素到另一个元素上，或点击上方按钮播放转化链。');});
- // 点击节点显示德性
- Object.keys(nodes).forEach(function(k){
-  nodes[k].addEventListener('click',function(e){
-   if(justDragged)return;
-   showPrinciple(POS[k].char+' · 主'+POS[k].virtue,POS[k].nature+'。方位：'+({mu:'东',huo:'南',tu:'中',jin:'西',shui:'北'})[k]+'。');
-  });
- });
- // 拖拽实验
- var drag=null,startX=0,startY=0,dx=0,dy=0,justDragged=false,moved=false;
- function svgPoint(e){var r=svg.getBoundingClientRect();var cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+ var drag=null,dx=0,dy=0,sx=0,sy=0,moved=false;
+ function pt(e){var r=svg.getBoundingClientRect();var cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
   var cy=(e.touches?e.touches[0].clientY:e.clientY)-r.top;return{x:cx/r.width*600,y:cy/r.height*600};}
  Object.keys(nodes).forEach(function(k){
+  nodes[k].style.cursor='grab';
   nodes[k].addEventListener('pointerdown',function(e){
-   e.preventDefault();drag=k;moved=false;
-   var pt=svgPoint(e);startX=pt.x;startY=pt.y;dx=0;dy=0;
-   nodes[k].classList.add('dragging');nodes[k].setPointerCapture(e.pointerId);
+   e.preventDefault();drag=k;moved=false;var p=pt(e);sx=p.x;sy=p.y;dx=0;dy=0;
+   nodes[k].classList.add('dragging');try{nodes[k].setPointerCapture(e.pointerId);}catch(_){}
   });
   nodes[k].addEventListener('pointermove',function(e){
-   if(drag!==k)return;var pt=svgPoint(e);dx=pt.x-startX;dy=pt.y-startY;
+   if(drag!==k)return;var p=pt(e);dx=p.x-sx;dy=p.y-sy;
    if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;
-   nodes[k].setAttribute('transform','translate('+(origPos[k].x+dx)+','+(origPos[k].y+dy)+')');
+   nodes[k].setAttribute('transform','translate('+(orig[k].x+dx)+','+(orig[k].y+dy)+')');
   });
-  nodes[k].addEventListener('pointerup',function(e){
+  function up(){
    if(drag!==k)return;nodes[k].classList.remove('dragging');
-   // 找最近目标
-   var target=null,minD=90;
-   Object.keys(POS).forEach(function(t){
-    if(t===k)return;var tx=origPos[t].x,ty=origPos[t].y;
-    var nx=origPos[k].x+dx,ny=origPos[k].y+dy;var d=Math.hypot(nx-tx,ny-ty);
-    if(d<minD){minD=d;target=t;}
-   });
-   // 归位
-   nodes[k].setAttribute('transform','translate('+origPos[k].x+','+origPos[k].y+')');
-   if(moved&&target){justDragged=true;setTimeout(function(){justDragged=false;},50);judge(k,target);}
+   var target=null,minD=(cfg.nodes[k].r||34)*2.4;
+   Object.keys(cfg.nodes).forEach(function(t){if(t===k)return;
+    var d=Math.hypot(orig[k].x+dx-orig[t].x,orig[k].y+dy-orig[t].y);
+    if(d<minD){minD=d;target=t;}});
+   nodes[k].setAttribute('transform','translate('+orig[k].x+','+orig[k].y+')');
+   if(moved&&target)judge(k,target);
+   else if(!moved){var n=cfg.nodes[k];show(k+(n.desc?' · '+n.desc:''),n.nature||'');}
    drag=null;
-  });
+  }
+  nodes[k].addEventListener('pointerup',up);
+  nodes[k].addEventListener('pointercancel',up);
  });
  function judge(a,b){
-  resetLines();
-  // 找关系
-  var sIdx=SHENG.findIndex(function(x){return x[0]===a&&x[1]===b;});
-  var kIdx=KE.findIndex(function(x){return x[0]===a&&x[1]===b;});
-  var sRev=SHENG.findIndex(function(x){return x[0]===b&&x[1]===a;});
-  var kRev=KE.findIndex(function(x){return x[0]===b&&x[1]===a;});
-  if(sIdx>=0){lines['s_'+sIdx].classList.add('show');pulse(b);
-   showPrinciple(POS[a].char+'生'+POS[b].char,SHENG[sIdx][2]);}
-  else if(kIdx>=0){lines['k_'+kIdx].classList.add('show');pulse(b);
-   showPrinciple(POS[a].char+'克'+POS[b].char,KE[kIdx][2]);}
-  else if(sRev>=0){lines['s_'+sRev].classList.add('show');pulse(a);
-   showPrinciple(POS[b].char+'生'+POS[a].char,SHENG[sRev][2]+'（所以 '+POS[a].char+' 被 '+POS[b].char+' 所生）。');}
-  else if(kRev>=0){lines['k_'+kRev].classList.add('show');pulse(a);
-   showPrinciple(POS[b].char+'克'+POS[a].char,KE[kRev][2]+'（所以 '+POS[a].char+' 被 '+POS[b].char+' 所克）。');}
-  else{showPrinciple(POS[a].char+' 与 '+POS[b].char,'二者没有直接的生克关系。五行中每个元素只直接生一个、克一个，其余通过链条间接影响。');}
+  reset();var found=false;
+  Object.keys(cfg.groups).forEach(function(gname){
+   var g=cfg.groups[gname];(g.items||[]).forEach(function(item,i){
+    if(item.length>3)return;
+    if(item[0]===a&&item[1]===b){lines[gname+'_'+i].classList.add('show');pulse(b);show(item[0]+g.sep+item[1],item[2]||'');found=true;}
+    else if(item[0]===b&&item[1]===a){lines[gname+'_'+i].classList.add('show');pulse(a);show(item[0]+g.sep+item[1],(item[2]||'')+'（反向亦然）');found=true;}
+   });
+  });
+  if(!found){
+   var wa=cfg.nodes[a].wx,wb=cfg.nodes[b].wx;
+   if(wa&&wb&&wa===wb){show(a+' 与 '+b,'同属一行，气类相同，为比和相助。');}
+   else{show(a+' 与 '+b,'二者没有直接的合冲关系，可能通过五行生克或组合间接影响。');}
+  }
  }
+ return {play:playGroup,reset:reset};
+}
+worlds.wuxing=createRelationWorld({
+ svgId:'worldSvg',nodeClass:'wx-node',charClass:'wx-char',
+ titleId:'wpTitle',textId:'wpText',
+ bgRing:[240,120],
+ labels:[['东·木',55,305],['南·火',300,48],['西·金',545,305],['北·水',300,558]],
+ nodes:{
+  '木':{x:110,y:300,r:46,color:'#3f8f6b',wx:'mu',icon:'\u{1F333}',iconSize:26,charSize:20,desc:'主仁',nature:'树木，主生发。方位：东。'},
+  '火':{x:300,y:105,r:46,color:'#c44532',wx:'huo',icon:'\u{1F525}',iconSize:26,charSize:20,desc:'主礼',nature:'火焰，主炎上。方位：南。'},
+  '土':{x:300,y:300,r:46,color:'#c29a3e',wx:'tu',icon:'\u{26F0}',iconSize:26,charSize:20,desc:'主信',nature:'大地，主承载。方位：中。'},
+  '金':{x:490,y:300,r:46,color:'#8d8674',wx:'jin',icon:'\u{1FA99}',iconSize:26,charSize:20,desc:'主义',nature:'金属，主肃杀。方位：西。'},
+  '水':{x:300,y:495,r:46,color:'#35587d',wx:'shui',icon:'\u{1F4A7}',iconSize:26,charSize:20,desc:'主智',nature:'流水，主润下。方位：北。'}
+ },
+ groups:{
+  sheng:{sep:'生',color:'#3f8f6b',interval:1500,label:'生',
+   items:[['木','火','树木可以燃烧，火由木而生。'],['火','土','火燃尽成灰烬，归于土中。'],
+    ['土','金','金属矿石蕴藏于土壤之中。'],['金','水','金属在清晨冷凝，表面凝出水珠。'],
+    ['水','木','水滋润树木，使其生长。']],
+   doneTitle:'五行相生闭环',doneText:'相生是能量转化链：木→火→土→金→水→木，循环不息。理解了自然原理，就不必背顺序。'},
+  ke:{sep:'克',color:'#b3402b',interval:1500,label:'克',
+   items:[['木','土','树根穿破土壤，向深处生长。'],['土','水','堤坝（土）阻挡水流的去路。'],
+    ['水','火','水浇灭火焰，使其熄灭。'],['火','金','烈火熔化金属，改变其形。'],
+    ['金','木','斧头（金）砍伐树木。']],
+   doneTitle:'五行相克闭环',doneText:'相克是相互制约：木→土→水→火→金→木，维持系统平衡。'}
+ }
+});
+worlds.gan=createRelationWorld({
+ svgId:'ganSvg',nodeClass:'gan-node',charClass:'gan-char',
+ titleId:'ganTitle',textId:'ganText',
+ bgRing:[240,120],
+ labels:[['东·木',55,305],['南·火',300,48],['西·金',545,305],['北·水',300,558],['中·土',300,280]],
+ nodes:{
+  '甲':{x:95,y:250,r:34,color:'#3f8f6b',wx:'mu',desc:'阳木·大树',nature:'甲木如雷如树，正直向上，主生发。'},
+  '乙':{x:95,y:350,r:34,color:'#3f8f6b',wx:'mu',desc:'阴木·花草',nature:'乙木如风如花草，柔韧曲折，主缠绕。'},
+  '丙':{x:250,y:95,r:34,color:'#c44532',wx:'huo',desc:'阳火·太阳',nature:'丙火如日，光明热烈，主炎上。'},
+  '丁':{x:350,y:95,r:34,color:'#c44532',wx:'huo',desc:'阴火·灯烛',nature:'丁火如灯如星，温柔持久，主照耀。'},
+  '戊':{x:265,y:300,r:32,color:'#c29a3e',wx:'tu',desc:'阳土·城墙',nature:'戊土如城墙大地，厚重稳实，主承载。'},
+  '己':{x:335,y:300,r:32,color:'#c29a3e',wx:'tu',desc:'阴土·田园',nature:'己土如田园湿土，孕育万物，主化育。'},
+  '庚':{x:505,y:250,r:34,color:'#8d8674',wx:'jin',desc:'阳金·斧钺',nature:'庚金如斧钺矿石，刚健肃杀，主变革。'},
+  '辛':{x:505,y:350,r:34,color:'#8d8674',wx:'jin',desc:'阴金·珠玉',nature:'辛金如珠玉首饰，精致秀气，主修饰。'},
+  '壬':{x:250,y:505,r:34,color:'#35587d',wx:'shui',desc:'阳水·江河',nature:'壬水如江河大海，奔腾不息，主流动。'},
+  '癸':{x:350,y:505,r:34,color:'#35587d',wx:'shui',desc:'阴水·雨露',nature:'癸水如雨露泉水，细腻滋润，主浸润。'}
+ },
+ groups:{
+  wuhe:{sep:'合',color:'#b3402b',interval:1700,label:'合',
+   items:[['甲','己','甲己合·中正之合，化土。甲木正直、己土包容，阴阳相吸。'],
+    ['乙','庚','乙庚合·仁义之合，化金。乙木柔韧、庚金刚毅，仁与义合。'],
+    ['丙','辛','丙辛合·威制之合，化水。丙火威严、辛金精致，威而有制。'],
+    ['丁','壬','丁壬合·淫慝之合，化木。丁火温柔、壬水奔放，情之所钟。'],
+    ['戊','癸','戊癸合·无情之合，化火。戊土厚重、癸水细腻，老少之合。']],
+   doneTitle:'天干五合',doneText:'五合皆为一阳一阴相吸，合则化气（土金水木火），是天干间最紧密的关系。'},
+  sichong:{sep:'冲',color:'#c44532',interval:1500,label:'冲',
+   items:[['甲','庚','甲庚冲：阳金砍伐阳木，东西正对面相撞。'],
+    ['乙','辛','乙辛冲：阴金修剪阴木，同为木金之战。'],
+    ['丙','壬','丙壬冲：阳水浇灭阳火，南北正对面相撞。'],
+    ['丁','癸','丁癸冲：阴水克制阴火，同为水火之战。']],
+   doneTitle:'天干四冲',doneText:'四冲皆是方位正对（东西、南北），同性相斥，力量激烈。戊己居中，不与他干相冲。'}
+ }
+});
+(function(){
+ var ZHI=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+ var ZODIAC={子:'鼠',丑:'牛',寅:'虎',卯:'兔',辰:'龙',巳:'蛇',午:'马',未:'羊',申:'猴',酉:'鸡',戌:'狗',亥:'猪'};
+ var WX={子:'shui',丑:'tu',寅:'mu',卯:'mu',辰:'tu',巳:'huo',午:'huo',未:'tu',申:'jin',酉:'jin',戌:'tu',亥:'shui'};
+ var COLOR={mu:'#3f8f6b',huo:'#c44532',tu:'#c29a3e',jin:'#8d8674',shui:'#35587d'};
+ var DESC={子:'正北·仲冬·藏',丑:'季冬·寒土',寅:'孟春·始生',卯:'正东·仲春·旺',
+ 辰:'季春·湿土',巳:'孟夏·渐热',午:'正南·仲夏·盛',未:'季夏·燥土',
+ 申:'孟秋·渐肃',酉:'正西·仲秋·熟',戌:'季秋·干土',亥:'孟冬·归藏'};
+ var nodes={};
+ ZHI.forEach(function(z,i){
+  var ang=(-90+i*30)*Math.PI/180;
+  nodes[z]={x:300+215*Math.cos(ang),y:300+215*Math.sin(ang),r:31,
+   color:COLOR[WX[z]],wx:WX[z],icon:ZODIAC[z],iconSize:14,charSize:17,desc:DESC[z],nature:DESC[z]};
+ });
+ worlds.zhi=createRelationWorld({
+  svgId:'zhiSvg',nodeClass:'zhi-node',charClass:'zhi-char',
+  titleId:'zhiTitle',textId:'zhiText',
+  bgRing:[240],
+  labels:[['子·北',300,52],['午·南',300,560],['卯·东',552,305],['酉·西',48,305]],
+  nodes:nodes,
+  groups:{
+   liuchong:{sep:'冲',color:'#c44532',interval:1100,label:'冲',
+    items:[['子','午','子午冲：正北与正南，水旺火烈，正面对撞。'],
+     ['丑','未','丑未冲：湿土与燥土，同属土而性相反。'],
+     ['寅','申','寅申冲：木之始与金之始，初生遇肃杀。'],
+     ['卯','酉','卯酉冲：正东与正西，木旺金锐，门户相对。'],
+     ['辰','戌','辰戌冲：水库与火库，湿土干土相撞。'],
+     ['巳','亥','巳亥冲：火之渐与水之归，阴阳交战。']],
+    doneTitle:'地支六冲',doneText:'六冲皆是盘上正对面（隔六位），方位相对、气场相冲，是地支间最激烈的关系。'},
+   liuhe:{sep:'合',color:'#b3402b',interval:1300,label:'合',
+    items:[['子','丑','子丑合·化土：寒水遇湿土，冻合在一起。'],
+     ['寅','亥','寅亥合·化木：木之始得水之归，相生而合。'],
+     ['卯','戌','卯戌合·化火：旺木投火库，木尽火生。'],
+     ['辰','酉','辰酉合·化金：湿土生辛金，金气凝聚。'],
+     ['巳','申','巳申合·化水：火金相克反合，激而生水。'],
+     ['午','未','午未合·化土：烈火遇燥土，火烬成土。']],
+    doneTitle:'地支六合',doneText:'六合是相邻或近邻两支相吸合化，关系紧密，合则改变本性。'},
+   sanhe:{sep:'',color:'#3f8f6b',interval:2000,label:'三合局',
+    items:[['申','子','辰','申子辰三合水局：长生(申)→帝旺(子)→墓库(辰)，水之生命周期。'],
+     ['亥','卯','未','亥卯未三合木局：长生(亥)→帝旺(卯)→墓库(未)，木之生命周期。'],
+     ['寅','午','戌','寅午戌三合火局：长生(寅)→帝旺(午)→墓库(戌)，火之生命周期。'],
+     ['巳','酉','丑','巳酉丑三合金局：长生(巳)→帝旺(酉)→墓库(丑)，金之生命周期。']],
+    doneTitle:'地支三合局',doneText:'三合是"长生—帝旺—墓库"三个点构成的生命周期三角，合则成局，力量强大。'},
+   sanhui:{sep:'',color:'#35587d',interval:1800,label:'三会方',
+    items:[['寅','卯','辰','寅卯辰三会东方木：春季三月，木气汇聚一方。'],
+     ['巳','午','未','巳午未三会南方火：夏季三月，火气汇聚一方。'],
+     ['申','酉','戌','申酉戌三会西方金：秋季三月，金气汇聚一方。'],
+     ['亥','子','丑','亥子丑三会北方水：冬季三月，水气汇聚一方。']],
+    doneTitle:'地支三会方',doneText:'三会是同一季节连续三支汇聚成方，力量比三合更纯粹——整季之气齐聚。'}
+  }
+ });
 })();
+document.querySelectorAll('.world-tab').forEach(function(t){
+ t.addEventListener('click',function(){
+  document.querySelectorAll('.world-tab').forEach(function(x){x.classList.remove('active');});
+  t.classList.add('active');
+  document.querySelectorAll('.world-scene').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('scene-'+t.dataset.scene).classList.add('active');
+ });
+});
+document.querySelectorAll('[data-play]').forEach(function(b){
+ b.addEventListener('click',function(){var p=b.dataset.play.split(':');if(worlds[p[0]])worlds[p[0]].play(p[1]);});
+});
+document.querySelectorAll('[data-reset]').forEach(function(b){
+ b.addEventListener('click',function(){if(worlds[b.dataset.reset])worlds[b.dataset.reset].reset();});
+});
 
 </script>
 </body>
