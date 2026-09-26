@@ -1623,7 +1623,6 @@ function createRelationWorld(cfg){
  var nodes={},lines={},tris={},orig={};
  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
  if(cfg.bgRing){cfg.bgRing.forEach(function(r){svg.appendChild(el('circle',{cx:300,cy:300,r:r,fill:'none',stroke:'#d8cdb4','stroke-width':1,'stroke-dasharray':'4 6'}));});}
- if(cfg.labels){cfg.labels.forEach(function(d){var t=el('text',{x:d[1],y:d[2],'text-anchor':'middle','class':'wx-dir'});t.textContent=d[0];svg.appendChild(t);});}
  Object.keys(cfg.groups).forEach(function(gname){
   var g=cfg.groups[gname];
   (g.items||[]).forEach(function(item,i){
@@ -1641,9 +1640,11 @@ function createRelationWorld(cfg){
  Object.keys(cfg.nodes).forEach(function(k){
   var n=cfg.nodes[k];orig[k]={x:n.x,y:n.y};
   var g=el('g',{'class':cfg.nodeClass,'data-k':k,transform:'translate('+n.x+','+n.y+')'});
-  g.appendChild(el('circle',{cx:0,cy:0,r:n.r||34,fill:(n.color||'#888')+'22',stroke:n.color||'#888','stroke-width':3}));
-  if(n.icon){var bg=el('text',{x:0,y:1,'text-anchor':'middle','dominant-baseline':'central','font-size':(n.r||34)*1.2,opacity:0.2});bg.textContent=n.icon;g.appendChild(bg);}
-  var ch=el('text',{x:0,y:0,'text-anchor':'middle','dominant-baseline':'central','class':cfg.charClass,'font-size':n.charSize||18,'font-weight':'700',fill:n.color||'#333'});ch.textContent=k;g.appendChild(ch);
+  var _fill=n.yang===false?(n.color||'#888')+'0c':(n.color||'#888')+'1e';
+  g.appendChild(el('circle',{cx:0,cy:0,r:n.r||34,fill:_fill,stroke:n.color||'#888','stroke-width':n.yang===false?2:3}));
+  var ch=el('text',{x:0,y:0,'text-anchor':'middle','dominant-baseline':'central','class':cfg.charClass,'font-size':n.charSize||20,'font-weight':'700',fill:n.color||'#333'});ch.textContent=k;g.appendChild(ch);
+  var _lb=(n.icon?n.icon+'  ':'')+(n.desc||'');
+  if(_lb){var lb=el('text',{x:0,y:(n.r||34)+17,'text-anchor':'middle','font-size':'11',fill:'#8a8170','class':'wx-nodelabel'});lb.textContent=_lb;g.appendChild(lb);}
   svg.appendChild(g);nodes[k]=g;
  });
  var titleEl=document.getElementById(cfg.titleId),textEl=document.getElementById(cfg.textId);
@@ -1716,11 +1717,11 @@ worlds.wuxing=createRelationWorld({
  bgRing:[240,120],
  labels:[['东·木',55,305],['南·火',300,48],['西·金',545,305],['北·水',300,558]],
  nodes:{
-  '木':{x:110,y:300,r:46,color:'#3f8f6b',wx:'mu',icon:'\u{1F333}',iconSize:26,charSize:20,desc:'主仁',nature:'树木，主生发。方位：东。'},
-  '火':{x:300,y:105,r:46,color:'#c44532',wx:'huo',icon:'\u{1F525}',iconSize:26,charSize:20,desc:'主礼',nature:'火焰，主炎上。方位：南。'},
-  '土':{x:300,y:300,r:46,color:'#c29a3e',wx:'tu',icon:'\u{26F0}',iconSize:26,charSize:20,desc:'主信',nature:'大地，主承载。方位：中。'},
-  '金':{x:490,y:300,r:46,color:'#8d8674',wx:'jin',icon:'\u{1FA99}',iconSize:26,charSize:20,desc:'主义',nature:'金属，主肃杀。方位：西。'},
-  '水':{x:300,y:495,r:46,color:'#35587d',wx:'shui',icon:'\u{1F4A7}',iconSize:26,charSize:20,desc:'主智',nature:'流水，主润下。方位：北。'}
+  '木':{x:110,y:295,r:44,color:'#3f8f6b',wx:'mu',icon:'\u{1F333}',charSize:24,desc:'东·仁',nature:'树木，主生发。方位：东。'},
+  '火':{x:300,y:100,r:44,color:'#c44532',wx:'huo',icon:'\u{1F525}',charSize:24,desc:'南·礼',nature:'火焰，主炎上。方位：南。'},
+  '土':{x:300,y:295,r:44,color:'#c29a3e',wx:'tu',icon:'\u{26F0}',charSize:24,desc:'中·信',nature:'大地，主承载。方位：中。'},
+  '金':{x:490,y:295,r:44,color:'#8d8674',wx:'jin',icon:'\u{1FA99}',charSize:24,desc:'西·义',nature:'金属，主肃杀。方位：西。'},
+  '水':{x:300,y:490,r:44,color:'#35587d',wx:'shui',icon:'\u{1F4A7}',charSize:24,desc:'北·智',nature:'流水，主润下。方位：北。'}
  },
  groups:{
   sheng:{sep:'生',color:'#3f8f6b',interval:1500,label:'生',
@@ -1741,16 +1742,16 @@ worlds.gan=createRelationWorld({
  bgRing:[240,120],
  labels:[['东·木',55,305],['南·火',300,48],['西·金',545,305],['北·水',300,558],['中·土',300,280]],
  nodes:{
-  '甲':{x:95,y:250,r:34,color:'#3f8f6b',wx:'mu',desc:'阳木·大树',nature:'甲木如雷如树，正直向上，主生发。'},
-  '乙':{x:95,y:350,r:34,color:'#3f8f6b',wx:'mu',desc:'阴木·花草',nature:'乙木如风如花草，柔韧曲折，主缠绕。'},
-  '丙':{x:250,y:95,r:34,color:'#c44532',wx:'huo',desc:'阳火·太阳',nature:'丙火如日，光明热烈，主炎上。'},
-  '丁':{x:350,y:95,r:34,color:'#c44532',wx:'huo',desc:'阴火·灯烛',nature:'丁火如灯如星，温柔持久，主照耀。'},
-  '戊':{x:265,y:300,r:32,color:'#c29a3e',wx:'tu',desc:'阳土·城墙',nature:'戊土如城墙大地，厚重稳实，主承载。'},
-  '己':{x:335,y:300,r:32,color:'#c29a3e',wx:'tu',desc:'阴土·田园',nature:'己土如田园湿土，孕育万物，主化育。'},
-  '庚':{x:505,y:250,r:34,color:'#8d8674',wx:'jin',desc:'阳金·斧钺',nature:'庚金如斧钺矿石，刚健肃杀，主变革。'},
-  '辛':{x:505,y:350,r:34,color:'#8d8674',wx:'jin',desc:'阴金·珠玉',nature:'辛金如珠玉首饰，精致秀气，主修饰。'},
-  '壬':{x:250,y:505,r:34,color:'#35587d',wx:'shui',desc:'阳水·江河',nature:'壬水如江河大海，奔腾不息，主流动。'},
-  '癸':{x:350,y:505,r:34,color:'#35587d',wx:'shui',desc:'阴水·雨露',nature:'癸水如雨露泉水，细腻滋润，主浸润。'}
+  '甲':{x:100,y:235,r:36,color:'#3f8f6b',wx:'mu',yang:true,charSize:22,desc:'阳木·大树',nature:'甲木如雷如树，正直向上，主生发。'},
+  '乙':{x:100,y:365,r:36,color:'#3f8f6b',wx:'mu',yang:false,charSize:22,desc:'阴木·花草',nature:'乙木如风如花草，柔韧曲折，主缠绕。'},
+  '丙':{x:235,y:100,r:36,color:'#c44532',wx:'huo',yang:true,charSize:22,desc:'阳火·太阳',nature:'丙火如日，光明热烈，主炎上。'},
+  '丁':{x:365,y:100,r:36,color:'#c44532',wx:'huo',yang:false,charSize:22,desc:'阴火·灯烛',nature:'丁火如灯如星，温柔持久，主照耀。'},
+  '戊':{x:260,y:295,r:34,color:'#c29a3e',wx:'tu',yang:true,charSize:21,desc:'阳土·城墙',nature:'戊土如城墙大地，厚重稳实，主承载。'},
+  '己':{x:340,y:295,r:34,color:'#c29a3e',wx:'tu',yang:false,charSize:21,desc:'阴土·田园',nature:'己土如田园湿土，孕育万物，主化育。'},
+  '庚':{x:500,y:235,r:36,color:'#8d8674',wx:'jin',yang:true,charSize:22,desc:'阳金·斧钺',nature:'庚金如斧钺矿石，刚健肃杀，主变革。'},
+  '辛':{x:500,y:365,r:36,color:'#8d8674',wx:'jin',yang:false,charSize:22,desc:'阴金·珠玉',nature:'辛金如珠玉首饰，精致秀气，主修饰。'},
+  '壬':{x:235,y:500,r:36,color:'#35587d',wx:'shui',yang:true,charSize:22,desc:'阳水·江河',nature:'壬水如江河大海，奔腾不息，主流动。'},
+  '癸':{x:365,y:500,r:36,color:'#35587d',wx:'shui',yang:false,charSize:22,desc:'阴水·雨露',nature:'癸水如雨露泉水，细腻滋润，主浸润。'}
  },
  groups:{
   wuhe:{sep:'合',color:'#b3402b',interval:1700,label:'合',
@@ -1779,8 +1780,8 @@ worlds.gan=createRelationWorld({
  var nodes={};
  ZHI.forEach(function(z,i){
   var ang=(-90+i*30)*Math.PI/180;
-  nodes[z]={x:300+215*Math.cos(ang),y:300+215*Math.sin(ang),r:31,
-   color:COLOR[WX[z]],wx:WX[z],icon:ZODIAC[z],iconSize:14,charSize:17,desc:DESC[z],nature:DESC[z]};
+  nodes[z]={x:300+210*Math.cos(ang),y:300+210*Math.sin(ang),r:33,
+   color:COLOR[WX[z]],wx:WX[z],icon:ZODIAC[z],charSize:20,desc:DESC[z],nature:DESC[z]};
  });
  worlds.zhi=createRelationWorld({
   svgId:'zhiSvg',nodeClass:'zhi-node',charClass:'zhi-char',
