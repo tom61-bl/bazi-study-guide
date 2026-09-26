@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八字一体化学习 · 笔记 互动图 刷卡</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23f7f1e3' stroke='%232b2620' stroke-width='4'/%3E%3Cpath d='M50 4a46 46 0 0 1 0 92 23 23 0 0 1 0-46 23 23 0 0 0 0-46z' fill='%232b2620'/%3E%3Ccircle cx='50' cy='27' r='7' fill='%23f7f1e3'/%3E%3Ccircle cx='50' cy='73' r='7' fill='%232b2620'/%3E%3C/svg%3E">
+<style>
+
+:root{
+  --paper:#f5efe1; --paper-2:#efe7d4; --card:#fbf7ec;
+  --ink:#2b2620; --ink-2:#57503f; --ink-3:#8a8170;
+  --cinnabar:#b3402b; --cinnabar-d:#93301e; --line:#d8cdb4;
+  --mu:#3f8f6b; --mu-bg:#e2efe7;
+  --huo:#c44532; --huo-bg:#f6e3dd;
+  --tu:#c29a3e; --tu-bg:#f5ecd2;
+  --jin:#8d8674; --jin-bg:#ece8dd;
+  --shui:#35587d; --shui-bg:#dde7f0;
+  --serif:'Noto Serif SC',Songti SC,SimSun,serif;
+  --sans:'Noto Sans SC',PingFang SC,Microsoft YaHei,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-height:1.85;
+  background-image:radial-gradient(circle at 20% 10%,rgba(179,64,43,.04),transparent 40%),radial-gradient(circle at 80% 80%,rgba(53,88,125,.05),transparent 40%)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+/* ===== 页眉 ===== */
+header.masthead{padding:72px 0 40px;text-align:center;border-bottom:2px solid var(--ink);position:relative}
+header.masthead::after{content:"";display:block;height:1px;background:var(--ink);margin-top:5px}
+.kicker{font-family:var(--sans);font-size:13px;letter-spacing:.5em;color:var(--cinnabar);margin-bottom:22px;text-indent:.5em}
+h1{font-size:52px;font-weight:900;letter-spacing:.12em;line-height:1.2}
+.subtitle{margin-top:18px;font-size:17px;color:var(--ink-2);letter-spacing:.3em}
+.seal{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;background:var(--cinnabar);color:#f8efe0;
+  font-weight:700;font-size:15px;line-height:1.25;border-radius:6px;margin-top:26px;letter-spacing:.1em;
+  box-shadow:0 2px 0 rgba(0,0,0,.15);transform:rotate(-3deg)}
+nav.toc{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:34px 0 0}
+nav.toc a{font-family:var(--sans);font-size:14px;text-decoration:none;color:var(--ink);border:1px solid var(--line);
+  padding:9px 22px;border-radius:3px;background:var(--card);transition:.2s;letter-spacing:.15em}
+nav.toc a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ===== 章节 ===== */
+section.chapter{padding:64px 0 20px}
+.ch-head{display:flex;align-items:baseline;gap:18px;margin-bottom:38px;border-bottom:1px solid var(--line);padding-bottom:16px}
+.ch-num{font-family:var(--serif);font-size:40px;font-weight:900;color:var(--cinnabar);line-height:1}
+.ch-title{font-size:30px;font-weight:700;letter-spacing:.1em}
+.ch-en{margin-left:auto;font-family:var(--sans);font-size:12px;color:var(--ink-3);letter-spacing:.25em}
+h3.block{font-size:21px;font-weight:700;margin:44px 0 18px;padding-left:14px;border-left:4px solid var(--cinnabar);letter-spacing:.08em}
+h3.block .en{font-family:var(--sans);font-size:12px;color:var(--ink-3);font-weight:400;margin-left:10px;letter-spacing:.15em}
+p.note{color:var(--ink-2);margin:10px 0;font-size:15.5px}
+.quote{background:var(--paper-2);border-radius:4px;padding:14px 20px;margin:14px 0;font-size:15.5px;color:var(--ink-2);text-align:center;letter-spacing:.05em}
+
+/* ===== 五行卡片 ===== */
+.wx-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:18px 0}
+.wx-card{border-radius:6px;padding:20px 14px 16px;text-align:center;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden}
+.wx-card::before{content:"";position:absolute;top:0;left:0;right:0;height:6px}
+.wx-card.mu::before{background:var(--mu)} .wx-card.huo::before{background:var(--huo)}
+.wx-card.tu::before{background:var(--tu)} .wx-card.jin::before{background:var(--jin)}
+.wx-card.shui::before{background:var(--shui)}
+.wx-char{font-size:42px;font-weight:900;line-height:1.2}
+.wx-card.mu .wx-char{color:var(--mu)} .wx-card.huo .wx-char{color:var(--huo)}
+.wx-card.tu .wx-char{color:var(--tu)} .wx-card.jin .wx-char{color:var(--jin)}
+.wx-card.shui .wx-char{color:var(--shui)}
+.wx-virtue{font-weight:700;font-size:16px;margin:6px 0 2px;letter-spacing:.2em}
+.wx-yue{font-family:var(--sans);font-size:12px;color:var(--ink-3);margin-bottom:8px}
+.wx-desc{font-size:13px;color:var(--ink-2);line-height:1.7}
+.wx-tasks{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink-2);text-align:left;line-height:1.9}
+
+/* ===== 通用表格 ===== */
+.tablecard{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+table.fixed{table-layout:fixed}
+th{background:var(--ink);color:var(--paper);font-weight:600;padding:12px 14px;text-align:left;font-family:var(--serif);letter-spacing:.1em;font-size:14px}
+td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top;line-height:1.7}
+tbody tr:nth-child(even){background:rgba(216,205,180,.18)}
+td .tag{display:inline-block;font-family:var(--sans);font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;letter-spacing:.05em}
+.tag.yang{background:var(--huo-bg);color:var(--huo)} .tag.yin{background:var(--shui-bg);color:var(--shui)}
+.gan{font-weight:700;font-size:16px}
+.c-mu{color:var(--mu)}.c-huo{color:var(--huo)}.c-tu{color:var(--tu)}.c-jin{color:var(--jin)}.c-shui{color:var(--shui)}
+
+/* ===== 关系组合卡（五合/四冲/三会/三合等） ===== */
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin:16px 0}
+.rel-grid.four{grid-template-columns:repeat(2,1fr)}
+.rel-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.rel-pair{font-size:19px;font-weight:700;letter-spacing:.05em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rel-arrow{color:var(--ink-3);font-weight:400;font-size:15px}
+.rel-badge{font-family:var(--sans);font-size:11.5px;padding:2px 10px;border-radius:20px;margin-left:auto;letter-spacing:.1em}
+.b-good{background:var(--mu-bg);color:var(--mu)} .b-bad{background:var(--huo-bg);color:var(--huo)}
+.b-mid{background:var(--tu-bg);color:var(--tu)} .b-info{background:var(--shui-bg);color:var(--shui)}
+.rel-name{font-size:14.5px;color:var(--cinnabar);font-weight:600;margin:8px 0 4px}
+.rel-img{font-size:13.5px;color:var(--ink-2)}
+.rel-desc{font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.75}
+
+/* ===== 口诀列表 ===== */
+.verses{columns:2;column-gap:36px;margin:14px 0}
+.verse{break-inside:avoid;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.5px;color:var(--ink-2)}
+.verse b{color:var(--ink)}
+.flow-strip{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0;font-family:var(--sans);font-size:14px}
+.flow-strip .node{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:8px 16px}
+.flow-strip .op{color:var(--cinnabar);font-weight:700}
+
+footer.colophon{margin-top:60px;padding:36px 0 60px;border-top:2px solid var(--ink);text-align:center;color:var(--ink-3);font-size:13px;font-family:var(--sans);letter-spacing:.15em}
+
+@media(max-width:860px){
+  .wx-grid{grid-template-columns:repeat(2,1fr)}
+  .wx-grid .wx-card:last-child{grid-column:1/-1}
+  .verses{columns:1}
+  h1{font-size:38px} .ch-title{font-size:23px} .ch-en{display:none}
+  .rel-grid{grid-template-columns:1fr}
+}
+
+
+:root{
+  --paper:#f5efe1; --paper-2:#ece3cf; --card:#fbf7ec;
+  --ink:#2b2620; --ink-2:#57503f; --ink-3:#8a8170;
+  --cinnabar:#b3402b; --line:#d8cdb4;
+  --mu:#3f8f6b; --huo:#c44532; --tu:#c29a3e; --jin:#8d8674; --shui:#35587d;
+  --serif:'Noto Serif SC',Songti SC,SimSun,serif;
+  --sans:'Noto Sans SC',PingFang SC,Microsoft YaHei,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-height:1.8;
+  background-image:radial-gradient(circle at 15% 8%,rgba(179,64,43,.05),transparent 45%),radial-gradient(circle at 85% 90%,rgba(53,88,125,.06),transparent 45%);min-height:100vh}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px 60px}
+
+/* ===== 页眉 ===== */
+.app-head{text-align:center;padding:54px 0 26px}
+.app-head h1{font-size:42px;font-weight:900;letter-spacing:.14em}
+.app-head p{font-family:var(--sans);font-size:13.5px;color:var(--ink-2);letter-spacing:.3em;margin-top:10px}
+
+/* ===== Tab ===== */
+.tabbar{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:18px 0 34px}
+.tab-btn{font-family:var(--sans);font-size:14.5px;letter-spacing:.12em;background:var(--card);
+  border:1px solid var(--line);color:var(--ink);padding:11px 26px;border-radius:4px;cursor:pointer;transition:.2s}
+.tab-btn:hover{border-color:var(--ink-3)}
+.tab-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab-btn .idx{color:var(--cinnabar);font-weight:700;margin-right:7px}
+.tab-btn.active .idx{color:#e0a593}
+
+.subview{display:none;animation:fade .35s ease}
+.subview.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ===== 工作台布局 ===== */
+.workbench{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:26px;align-items:start}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px}
+.stage svg{display:block;width:100%;height:auto}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px;position:sticky;top:18px}
+.panel h2{font-size:20px;font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.panel .hint{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin-bottom:16px;line-height:1.7}
+
+.legend{display:flex;flex-direction:column;gap:9px;margin:16px 0}
+.legend-row{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:13px;color:var(--ink-2)}
+.legend-line{width:30px;height:0;border-top-width:3px;border-top-style:solid;flex-shrink:0}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+
+/* 图层开关 */
+.layer-toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 4px}
+.layer-btn{font-family:var(--sans);font-size:13px;padding:9px 6px;border-radius:4px;border:1px solid var(--line);
+  background:var(--paper);cursor:pointer;transition:.18s;display:flex;align-items:center;gap:7px;justify-content:center;white-space:nowrap}
+.layer-btn::before{content:"";width:16px;height:3px;border-radius:2px;background:var(--lc,var(--ink))}
+.layer-btn.on{background:var(--lc);color:#fff;border-color:var(--lc)}
+.layer-btn.on::before{background:#fff}
+.mode-row{display:flex;gap:8px;margin:12px 0}
+.mode-btn{flex:1;font-family:var(--sans);font-size:13px;padding:8px;border:1px solid var(--line);background:var(--paper);border-radius:4px;cursor:pointer}
+.mode-btn.on{background:var(--cinnabar);color:#fff;border-color:var(--cinnabar)}
+
+/* 详情卡 */
+.detail{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+.detail-title{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.detail-char{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:25px;font-weight:900;color:#fff;flex-shrink:0}
+.detail-name{font-size:18px;font-weight:700}
+.detail-sub{font-family:var(--sans);font-size:12px;color:var(--ink-3)}
+.rel-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.rel-item{display:flex;align-items:center;gap:10px;font-size:13.5px;background:var(--paper);border-radius:5px;padding:8px 12px}
+.rel-tag{font-family:var(--sans);font-size:11.5px;font-weight:700;color:#fff;padding:1px 9px;border-radius:10px;min-width:44px;text-align:center}
+.rel-item .who{font-weight:700}
+.rel-item .ex{color:var(--ink-2);font-size:12.5px;margin-left:auto;text-align:right}
+
+/* ===== 计算器 ===== */
+.calc-box{max-width:760px;margin:0 auto}
+.calc-input{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px 0 26px}
+.calc-input label{font-size:16px;font-weight:600}
+.calc-input input{font-family:var(--sans);font-size:20px;width:150px;padding:11px 14px;border:1.5px solid var(--line);
+  border-radius:6px;background:var(--card);text-align:center;color:var(--ink)}
+.calc-input input:focus{outline:none;border-color:var(--cinnabar)}
+.calc-go{font-family:var(--sans);font-size:15px;padding:12px 30px;background:var(--cinnabar);color:#fff;
+  border:none;border-radius:6px;cursor:pointer;letter-spacing:.2em}
+.calc-go:hover{background:#93301e}
+.calc-result{text-align:center;margin-bottom:30px}
+.calc-result .gz{font-size:64px;font-weight:900;letter-spacing:.15em;line-height:1.2}
+.calc-result .gz .g{color:var(--cinnabar)}
+.calc-result .meta{font-family:var(--sans);font-size:14px;color:var(--ink-2);margin-top:8px}
+.mini-disks{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.mini-disk{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px}
+.mini-disk h3{text-align:center;font-size:15px;font-weight:700;margin-bottom:4px;letter-spacing:.1em}
+.mini-disk svg{display:block;width:100%;height:auto}
+.calc-method{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px 24px}
+.calc-method h3{font-size:16px;margin-bottom:8px}
+.calc-method p{font-family:var(--sans);font-size:13.5px;color:var(--ink-2)}
+.calc-method code{background:var(--paper-2);padding:1px 7px;border-radius:3px;font-family:Consolas,monospace;color:var(--cinnabar)}
+
+/* SVG 节点 */
+.node-group{cursor:pointer}
+.node-circle{transition:r .2s,stroke-width .2s;stroke:var(--ink);stroke-width:2}
+.node-group:hover .node-circle{stroke-width:3.5}
+.node-char{fill:#fff;font-family:var(--serif);font-weight:700;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.node-sub{fill:var(--ink-2);font-family:var(--sans);font-size:13px;text-anchor:middle;pointer-events:none}
+.compass-ring{fill:none;stroke:var(--line);stroke-width:1.5}
+.dir-label{fill:var(--ink-3);font-family:var(--serif);font-size:18px;text-anchor:middle;dominant-baseline:central;letter-spacing:.2em}
+.rel-line{fill:none;stroke-width:3;stroke-linecap:round;transition:opacity .25s;opacity:0}
+.rel-line.show{opacity:.85}
+.rel-line.dim{opacity:.18}
+.rel-line.dash{stroke-dasharray:8 7}
+.node-circle.dimmed{opacity:.35}
+.node-circle.picked{stroke:var(--cinnabar);stroke-width:5}
+
+@media(max-width:920px){
+  .workbench{grid-template-columns:1fr}
+  .panel{position:static}
+  .mini-disks{grid-template-columns:1fr}
+  .app-head h1{font-size:31px}
+}
+
+
+/* ===== 一体化框架 ===== */
+.integral-head{border-bottom:2px solid var(--ink);background:rgba(43,38,32,.03)}
+.integral-head .inner{max-width:1180px;margin:0 auto;padding:30px 26px 0;text-align:center}
+.integral-head h1{font-size:34px;font-weight:900;letter-spacing:.16em}
+.integral-head .sub{font-family:var(--sans);font-size:12.5px;color:var(--ink-2);letter-spacing:.32em;margin:8px 0 20px}
+.main-nav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding-bottom:22px}
+.main-nav button{font-family:var(--sans);font-size:14.5px;letter-spacing:.14em;background:var(--card);
+ border:1px solid var(--line);color:var(--ink);padding:10px 26px;border-radius:4px;cursor:pointer;transition:.2s}
+.main-nav button:hover{border-color:var(--ink-3)}
+.main-nav button.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.main-nav button .n{color:var(--cinnabar);font-weight:700;margin-right:7px}
+.main-nav button.active .n{color:#e0a593}
+.pane{display:none;animation:fade .3s ease}
+.pane.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.note-anchors{display:flex;gap:10px;justify-content:center;margin:30px 0 0;flex-wrap:wrap}
+.note-anchors a{font-family:var(--sans);font-size:13.5px;text-decoration:none;color:var(--ink);border:1px solid var(--line);
+ padding:7px 20px;border-radius:3px;background:var(--card)}
+.note-anchors a:hover{background:var(--ink);color:var(--paper)}
+#pane-notes .chapter:first-child{padding-top:36px}
+
+/* ===== 网页刷卡 ===== */
+.study-wrap{max-width:800px;margin:36px auto 40px}
+.deck-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0}
+.deck-card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px;text-align:left;cursor:pointer;
+ font-family:var(--serif);font-size:19px;font-weight:700;transition:.2s;display:flex;flex-direction:column;gap:6px}
+.deck-card:hover{border-color:var(--cinnabar);transform:translateY(-2px)}
+.deck-card .dc-count{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--ink-2)}
+.deck-card .dc-due{font-family:var(--sans);font-size:12.5px;color:var(--cinnabar)}
+.study-note{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);text-align:center}
+.btn-ghost{font-family:var(--sans);font-size:13px;background:none;border:1px solid var(--line);border-radius:4px;
+ padding:7px 18px;cursor:pointer;color:var(--ink-2);display:block;margin:14px auto 0}
+.btn-ghost:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+.study-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.study-top .sd-name{font-family:var(--sans);font-size:13px;white-space:nowrap;color:var(--ink-2)}
+.progress-bar{flex:1;height:8px;background:var(--paper-2);border-radius:5px;overflow:hidden}
+#progressFill{height:100%;width:0;background:var(--cinnabar);transition:width .3s;border-radius:5px}
+.study-top .sd-prog{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);white-space:nowrap}
+.flashcard{background:var(--card);border:1px solid var(--line);border-radius:12px;min-height:300px;
+ display:flex;align-items:center;justify-content:center;padding:40px;cursor:pointer;position:relative;
+ box-shadow:0 4px 18px rgba(43,38,32,.07)}
+.flashcard .face{display:none;text-align:center;width:100%}
+.flashcard .face-front{display:block}
+.flashcard.flipped .face-front{display:none}
+.flashcard.flipped .face-back{display:block}
+.face-front{font-size:23px;font-weight:700;line-height:1.8}
+.face-back{font-size:18px;line-height:2;animation:fade .25s ease}
+.flip-hint{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);text-align:center;margin:12px 0 0}
+.study-actions{display:flex;gap:12px;justify-content:center;margin-top:18px}
+.study-actions button{flex:1;max-width:200px;font-family:var(--sans);padding:13px 10px;border-radius:8px;cursor:pointer;
+ border:1px solid var(--line);background:var(--card);transition:.18s}
+.study-actions button b{display:block;font-size:15px;font-family:var(--serif)}
+.study-actions button span{font-size:11.5px;color:var(--ink-3)}
+.study-actions button:hover{transform:translateY(-2px)}
+#rateAgain{border-color:#c44532}#rateAgain b{color:#c44532}
+#rateGood{border-color:#3f8f6b}#rateGood b{color:#3f8f6b}
+#rateEasy{border-color:#35587d}#rateEasy b{color:#35587d}
+.done-box{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:40px;margin-top:24px}
+.done-box h3{font-size:24px;margin-bottom:14px;letter-spacing:.1em}
+.done-box .ds{font-family:var(--sans);font-size:14px;color:var(--ink-2);line-height:2}
+.done-box .ds b{color:var(--cinnabar);font-size:20px}
+.done-actions{display:flex;gap:12px;justify-content:center;margin-top:22px;flex-wrap:wrap}
+.done-actions button,.study-wrap .primary{font-family:var(--sans);font-size:14px;padding:11px 24px;border-radius:6px;cursor:pointer;
+ border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.done-actions button.primary{background:var(--cinnabar);color:#fff;border-color:var(--cinnabar)}
+.study-wrap .mu{color:#3f8f6b;font-weight:bold}.study-wrap .huo{color:#c44532;font-weight:bold}
+.study-wrap .tu{color:#b08a2f;font-weight:bold}.study-wrap .jin{color:#7c7565;font-weight:bold}
+.study-wrap .shui{color:#35587d;font-weight:bold}
+@media(max-width:640px){.deck-grid{grid-template-columns:1fr}.integral-head h1{font-size:26px}
+ .study-actions{flex-direction:column}.study-actions button{max-width:none}}
+
+</style>
+</head>
+<body>
+<header class="integral-head">
+ <div class="inner">
+  <h1>八字一体化学习</h1>
+  <div class="sub">读笔记 · 玩罗盘 · 刷卡片</div>
+  <nav class="main-nav">
+   <button class="active" data-pane="notes"><span class="n">壹</span>基础笔记</button>
+   <button data-pane="inter"><span class="n">贰</span>互动图解</button>
+   <button data-pane="cards"><span class="n">叁</span>卡片复习</button>
+  </nav>
+ </div>
+</header>
+
+<main>
+ <section class="pane active" id="pane-notes">
+  <div class="wrap">
+   <div class="note-anchors">
+    <a href="#ch1">壹 · 阴阳五行</a><a href="#ch2">贰 · 十天干</a><a href="#ch3">叁 · 十二地支</a>
+   </div>
+   
+<!-- ================= 第一章 · 阴阳五行 ================= -->
+<section class="chapter" id="ch1">
+  <div class="ch-head">
+    <span class="ch-num">壹</span><span class="ch-title">阴阳五行</span>
+    <span class="ch-en">YIN YANG &amp; FIVE ELEMENTS</span>
+  </div>
+
+  <h3 class="block">阴阳属性 <span class="en">Yin / Yang</span></h3>
+  <div class="tablecard">
+    <table class="fixed">
+      <colgroup><col style="width:18%"><col style="width:41%"><col style="width:41%"></colgroup>
+      <thead><tr><th>类别</th><th>气质倾向</th><th>给人的感觉</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag yang">阳数多</span></td><td>外向、主动、外放</td><td>豪爽奔放</td></tr>
+        <tr><td><span class="tag yin">阴数多</span></td><td>内向、收敛、含蓄</td><td>内敛温柔</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="quote">五行通天地，八卦定乾坤。</div>
+
+  <h3 class="block">五行属性 <span class="en">Five Elements · 德性 · 特性 · 气质</span></h3>
+  <div class="wx-grid">
+    <div class="wx-card mu">
+      <div class="wx-char">木</div><div class="wx-virtue">主仁</div>
+      <div class="wx-yue">木曰曲直</div>
+      <div class="wx-desc">其性直，其情和。<br>生发、条达、舒展</div>
+      <div class="wx-tasks">生发 · 思考 · 构思 · 阅读 · 新知吸收 · 长期规划</div>
+    </div>
+    <div class="wx-card huo">
+      <div class="wx-char">火</div><div class="wx-virtue">主礼</div>
+      <div class="wx-yue">火曰炎上</div>
+      <div class="wx-desc">其性急，其性恭。<br>炎热、向上、光明</div>
+      <div class="wx-tasks">表达 · 输出 · 演讲 · 攻坚 · 主动推进 · 对外沟通</div>
+    </div>
+    <div class="wx-card tu">
+      <div class="wx-char">土</div><div class="wx-virtue">主信</div>
+      <div class="wx-yue">土曰稼穑</div>
+      <div class="wx-desc">其性重，其性厚。<br>承载、生化、受纳</div>
+      <div class="wx-tasks">整理 · 复盘 · 统筹 · 琐事处理 · 沉淀消化 · 稳定执行</div>
+    </div>
+    <div class="wx-card jin">
+      <div class="wx-char">金</div><div class="wx-virtue">主义</div>
+      <div class="wx-yue">金曰从革</div>
+      <div class="wx-desc">其性刚，其情烈。<br>变革、肃杀、坚劲</div>
+      <div class="wx-tasks">决断 · 筛选 · 取舍 · 精简 · 复盘纠错 · 理性思辨</div>
+    </div>
+    <div class="wx-card shui">
+      <div class="wx-char">水</div><div class="wx-virtue">主智</div>
+      <div class="wx-yue">水曰润下</div>
+      <div class="wx-desc">其性聪，其性善。<br>滋润、下行、寒凉</div>
+      <div class="wx-tasks">静思 · 冥想 · 积累 · 钻研 · 深度钻研 · 休养生息</div>
+    </div>
+  </div>
+  <p class="note">「从革」：兽皮治去其毛，革更之——金有变革、改造之性。</p>
+
+  <h3 class="block">四季五行状态 <span class="en">月令 · 旺相休囚死</span></h3>
+  <p class="note">不同时令（月令）下，五行各有不同的能量状态：</p>
+  <div class="tablecard">
+    <table class="fixed">
+      <colgroup><col style="width:20%"><col style="width:30%"><col style="width:50%"></colgroup>
+      <thead><tr><th>状态</th><th>判定</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td><b>旺</b></td><td>当令者为旺</td><td>正当月令，能量最盛</td></tr>
+        <tr><td><b>相</b></td><td>我生者为相</td><td>旺所生，次旺、相辅</td></tr>
+        <tr><td><b>休</b></td><td>生我者为休</td><td>生旺者已尽出力，退休安歇</td></tr>
+        <tr><td><b>囚</b></td><td>克我者为囚</td><td>克旺者反被制约，衰困</td></tr>
+        <tr><td><b>死</b></td><td>我克者为死</td><td>旺所克，最衰、无气</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">举例 · 春木当令：</p>
+  <div class="flow-strip">
+    <span class="node" style="border-color:var(--mu);color:var(--mu)">木旺</span>
+    <span class="op">→生</span>
+    <span class="node" style="border-color:var(--huo);color:var(--huo)">火相</span>
+    <span class="op">&nbsp;生我者</span>
+    <span class="node" style="border-color:var(--shui);color:var(--shui)">水休</span>
+    <span class="op">&nbsp;克我者</span>
+    <span class="node" style="border-color:var(--jin);color:var(--jin)">金囚</span>
+    <span class="op">&nbsp;我克者</span>
+    <span class="node" style="border-color:var(--tu);color:var(--tu)">土死</span>
+  </div>
+
+  <h3 class="block">干支关系（一） <span class="en">生 · 克 · 耗 · 泄 · 助</span></h3>
+  <div class="tablecard">
+    <table class="fixed">
+      <colgroup><col style="width:16%"><col style="width:34%"><col style="width:50%"></colgroup>
+      <thead><tr><th>关系</th><th>定义</th><th>以「火」为例</th></tr></thead>
+      <tbody>
+        <tr><td class="c-mu"><b>生</b></td><td>生我者为生</td><td>木生火 —— 木为火之「生」</td></tr>
+        <tr><td class="c-huo"><b>泄</b></td><td>我生者为泄</td><td>火生土 —— 土为火之「泄」（火之气被泄出）</td></tr>
+        <tr><td class="c-shui"><b>克</b></td><td>克我者为克</td><td>水克火 —— 水为火之「克」</td></tr>
+        <tr><td class="c-jin"><b>耗</b></td><td>我克者为耗</td><td>火克金 —— 金为火之「耗」（克人亦耗己之力）</td></tr>
+        <tr><td class="c-tu"><b>助</b></td><td>同我者为助</td><td>火见火 —— 比和相助</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="block">干支关系（二） <span class="en">反生反克 · 生克相济，物极必反</span></h3>
+  <p class="note">生之太过反为害，克之太过反受伤：</p>
+  <div class="verses">
+    <div class="verse"><b>金赖土生，土多金埋；</b>土赖火生，火多土焦。</div>
+    <div class="verse"><b>火赖木生，木多火炽；</b>木赖水生，水多木漂。</div>
+    <div class="verse"><b>水赖金生，金多水浊；</b>金能生水，水多金沉。</div>
+    <div class="verse"><b>水能生木，木多水缩；</b>木能生火，火多木焚。</div>
+    <div class="verse"><b>火能生土，土多火晦；</b>土能生金，金多土弱。</div>
+    <div class="verse"><b>金能克木，木坚金缺；</b>木能克土，土重木折。</div>
+    <div class="verse"><b>土能克水，水多土流；</b>水能克火，火炎水灼。</div>
+    <div class="verse"><b>火能克金，金多火熄；</b>金衰遇火，必见销熔。</div>
+    <div class="verse"><b>火弱逢水，必为熄灭；</b>水弱逢土，必为淤塞。</div>
+    <div class="verse"><b>土衰逢木，必遭倾陷；</b>木弱逢金，必为斫折。</div>
+  </div>
+  <p class="note">泄其太过，归于中和：</p>
+  <div class="verses">
+    <div class="verse"><b>强金得水，方挫其锋；</b></div>
+    <div class="verse"><b>强水得木，方缓其势；</b></div>
+    <div class="verse"><b>强木得火，方泄其英；</b></div>
+    <div class="verse"><b>强火得土，方敛其焰；</b></div>
+    <div class="verse"><b>强土得金，方化其顽。</b></div>
+  </div>
+  <p class="note">此外，五行另有对应方位、身体部位等说法（如木主肝胆、东、春；火主心、南、夏等）。</p>
+</section>
+
+<!-- ================= 第二章 · 十天干 ================= -->
+<section class="chapter" id="ch2">
+  <div class="ch-head">
+    <span class="ch-num">贰</span><span class="ch-title">十天干</span>
+    <span class="ch-en">TEN HEAVENLY STEMS</span>
+  </div>
+
+  <h3 class="block">十干意象 <span class="en">五行分阴阳，透为十天干</span></h3>
+  <div class="tablecard">
+    <table class="fixed">
+      <colgroup><col style="width:9%"><col style="width:9%"><col style="width:9%"><col style="width:24%"><col style="width:24%"><col style="width:25%"></colgroup>
+      <thead><tr><th>天干</th><th>阴阳</th><th>五行</th><th>在天为</th><th>在地为</th><th>主事 / 意象</th></tr></thead>
+      <tbody>
+        <tr><td class="gan c-mu">甲</td><td><span class="tag yang">阳</span></td><td class="c-mu">木</td><td>雷</td><td>大树</td><td>主生发，栋梁之木</td></tr>
+        <tr><td class="gan c-mu">乙</td><td><span class="tag yin">阴</span></td><td class="c-mu">木</td><td>风</td><td>花草</td><td>主创造，柔韧蔓生</td></tr>
+        <tr><td class="gan c-huo">丙</td><td><span class="tag yang">阳</span></td><td class="c-huo">火</td><td>日</td><td>篝火</td><td>太阳之火，光明热烈</td></tr>
+        <tr><td class="gan c-huo">丁</td><td><span class="tag yin">阴</span></td><td class="c-huo">火</td><td>星</td><td>烛火</td><td>灯烛之火，温润持久</td></tr>
+        <tr><td class="gan c-tu">戊</td><td><span class="tag yang">阳</span></td><td class="c-tu">土</td><td>霜</td><td>山</td><td>主承载，城墙高山</td></tr>
+        <tr><td class="gan c-tu">己</td><td><span class="tag yin">阴</span></td><td class="c-tu">土</td><td>气</td><td>沃土</td><td>主稳定，田园湿土</td></tr>
+        <tr><td class="gan c-jin">庚</td><td><span class="tag yang">阳</span></td><td class="c-jin">金</td><td>雾</td><td>矿</td><td>主变革，刀剑矿石</td></tr>
+        <tr><td class="gan c-jin">辛</td><td><span class="tag yin">阴</span></td><td class="c-jin">金</td><td>月</td><td>金（珠玉）</td><td>首饰之金，精致锋利</td></tr>
+        <tr><td class="gan c-shui">壬</td><td><span class="tag yang">阳</span></td><td class="c-shui">水</td><td>云</td><td>海</td><td>主浩荡，江河大海</td></tr>
+        <tr><td class="gan c-shui">癸</td><td><span class="tag yin">阴</span></td><td class="c-shui">水</td><td>雨</td><td>河（雨露）</td><td>主沉淀，雨露泉水</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">天干亦对应东南西北中五方。</p>
+
+  <h3 class="block">天干关系 <span class="en">合化 · 相冲</span></h3>
+  <p class="note">阴阳异克为合化；合化需具备条件：</p>
+  <div class="flow-strip">
+    <span class="node">天干相邻</span><span class="op">＋</span>
+    <span class="node">地支有根（月令对应合化后的属性）</span><span class="op">＋</span>
+    <span class="node">无克耗泄</span>
+  </div>
+  <p class="note">合绊：合而不化，反成牵绊——遥合、妒合、偷合、争合。</p>
+
+  <h3 class="block">天干五合 <span class="en">阴阳异克为合 · 五组合化</span></h3>
+  <div class="rel-grid">
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">甲</span><span class="rel-arrow">＋</span><span class="c-tu">己</span><span class="rel-arrow">合化</span><span class="c-tu">土</span><span class="rel-badge b-good">中正之合</span></div>
+      <div class="rel-img">农具与武器，稳中求进</div>
+      <div class="rel-desc">阳木合阴土，踏实安心、稳定可靠；做事有始有终，重视承诺，能成为他人的依靠。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">乙</span><span class="rel-arrow">＋</span><span class="c-jin">庚</span><span class="rel-arrow">合化</span><span class="c-jin">金</span><span class="rel-badge b-good">仁义之合</span></div>
+      <div class="rel-img">剑刃与剑穗，刚柔并济</div>
+      <div class="rel-desc">阴木合阳金，刚柔相济、相互成就；外柔内刚，既坚持原则又能灵活变通。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">丙</span><span class="rel-arrow">＋</span><span class="c-jin">辛</span><span class="rel-arrow">合化</span><span class="c-shui">水</span><span class="rel-badge b-info">威制之合</span></div>
+      <div class="rel-img">法治与德治，上传下达</div>
+      <div class="rel-desc">阳火合阴金，灵动平衡、目标一致；思维活跃，擅在矛盾中找最优解，做事效率高。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">丁</span><span class="rel-arrow">＋</span><span class="c-shui">壬</span><span class="rel-arrow">合化</span><span class="c-mu">木</span><span class="rel-badge b-mid">淫匿之合</span></div>
+      <div class="rel-img">星辰与大海，浪漫多情</div>
+      <div class="rel-desc">阴火合阳水，温柔联结、情感共鸣；共情力强，能快速感知他人情绪，易建立深度信任。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-tu">戊</span><span class="rel-arrow">＋</span><span class="c-shui">癸</span><span class="rel-arrow">合化</span><span class="c-huo">火</span><span class="rel-badge b-bad">无情之合</span></div>
+      <div class="rel-img">理想与现实，知行合一</div>
+      <div class="rel-desc">阳土合阴水，务实转化、结果导向；不纠结过程，专注目标落地，能把资源化为实际成果。</div>
+    </div>
+  </div>
+  <div class="quote">天干相交，阴阳相吸，合而生情，化而成用。</div>
+
+  <h3 class="block">天干四冲 <span class="en">阴阳同克为冲</span></h3>
+  <div class="rel-grid four">
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">甲</span><span class="rel-arrow">⇄</span><span class="c-jin">庚</span><span class="rel-badge b-bad">甲庚冲</span></div>
+      <div class="rel-img">利斧与巨木 —— 毁灭与新生</div>
+      <div class="rel-desc">铁斧与神木：正直感与生存原则的死磕；感官如「骨裂声」。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">乙</span><span class="rel-arrow">⇄</span><span class="c-jin">辛</span><span class="rel-badge b-bad">乙辛冲</span></div>
+      <div class="rel-img">绣花针与常春藤 —— 灵性与规训</div>
+      <div class="rel-desc">手术刀与常春藤：完美主义对生命力的霸凌；感官如「针刺感」。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">丙</span><span class="rel-arrow">⇄</span><span class="c-shui">壬</span><span class="rel-badge b-bad">丙壬冲</span></div>
+      <div class="rel-img">烈阳与深海 —— 喧嚣与孤独</div>
+      <div class="rel-desc">暖阳与深海：表演欲与抑郁质的极速切换；感官如「爆炸感」。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">丁</span><span class="rel-arrow">⇄</span><span class="c-shui">癸</span><span class="rel-badge b-bad">丁癸冲</span></div>
+      <div class="rel-img">烛火与雨雾 —— 希望与虚无</div>
+      <div class="rel-desc">烛火与晨雾：直觉与怀疑的午夜博弈；感官如「窒息感」。</div>
+    </div>
+  </div>
+
+  <h3 class="block">天干年干算法 <span class="en">十年一循环</span></h3>
+  <p class="note">公元 4 年为甲子年，故甲对应数字 4；年尾数对应天干：</p>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>年尾数</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead>
+      <tbody><tr>
+        <td><b>天干</b></td>
+        <td class="gan c-mu">甲</td><td class="gan c-mu">乙</td><td class="gan c-huo">丙</td><td class="gan c-huo">丁</td>
+        <td class="gan c-tu">戊</td><td class="gan c-tu">己</td><td class="gan c-jin">庚</td><td class="gan c-jin">辛</td>
+        <td class="gan c-shui">壬</td><td class="gan c-shui">癸</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <p class="note">例：1984 年尾数 4 → 甲；2026 年尾数 6 → 丙。</p>
+</section>
+
+<!-- ================= 第三章 · 十二地支 ================= -->
+<section class="chapter" id="ch3">
+  <div class="ch-head">
+    <span class="ch-num">叁</span><span class="ch-title">十二地支</span>
+    <span class="ch-en">TWELVE EARTHLY BRANCHES</span>
+  </div>
+
+  <h3 class="block">十二支意象 <span class="en">地支节气藏十二支 · 万物生长轮回</span></h3>
+  <div class="tablecard">
+    <table class="fixed">
+      <colgroup><col style="width:8%"><col style="width:9%"><col style="width:11%"><col style="width:34%"><col style="width:38%"></colgroup>
+      <thead><tr><th>地支</th><th>五行</th><th>取义</th><th>字义</th><th>意象</th></tr></thead>
+      <tbody>
+        <tr><td class="gan c-shui">子</td><td class="c-shui">水</td><td>「兹」</td><td>兹</td><td>万物滋养生发，一阳初生</td></tr>
+        <tr><td class="gan c-tu">丑</td><td class="c-tu">土</td><td>「纽」</td><td>纽</td><td>冬春交替，向死而生，纽结待解</td></tr>
+        <tr><td class="gan c-mu">寅</td><td class="c-mu">木</td><td>「演」</td><td>演</td><td>万物开始生长，演化萌发</td></tr>
+        <tr><td class="gan c-mu">卯</td><td class="c-mu">木</td><td>「冒」</td><td>冒</td><td>万物冒土而出</td></tr>
+        <tr><td class="gan c-tu">辰</td><td class="c-tu">土</td><td>「震」</td><td>震</td><td>万物震动生长，春雷震动</td></tr>
+        <tr><td class="gan c-huo">巳</td><td class="c-huo">火</td><td>「已」</td><td>已</td><td>万物初长成，气已盛</td></tr>
+        <tr><td class="gan c-huo">午</td><td class="c-huo">火</td><td>「仵」</td><td>仵</td><td>夏秋交替，生生不息，阴阳交仵</td></tr>
+        <tr><td class="gan c-tu">未</td><td class="c-tu">土</td><td>「味」</td><td>味</td><td>万物已有滋味，果实初成</td></tr>
+        <tr><td class="gan c-jin">申</td><td class="c-jin">金</td><td>「身」</td><td>身</td><td>万物形体已成</td></tr>
+        <tr><td class="gan c-jin">酉</td><td class="c-jin">金</td><td>「秀」</td><td>秀</td><td>万物成熟丰盈，稻谷飘香</td></tr>
+        <tr><td class="gan c-tu">戌</td><td class="c-tu">土</td><td>「灭」</td><td>灭</td><td>万物重归于土，生气收敛</td></tr>
+        <tr><td class="gan c-shui">亥</td><td class="c-shui">水</td><td>「核」</td><td>核</td><td>成种收获，重归轮回</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">对应节气、四季更迭、十二时辰、十二月令。<b>春生，夏长，秋收，冬藏。</b></p>
+
+  <h3 class="block">地支属性 <span class="en">三会方位 · 四墓库 · 阴阳支</span></h3>
+  <div class="tablecard">
+    <table class="fixed">
+      <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+      <tbody>
+        <tr><td><b>五行归类</b></td><td>亥子水 · 寅卯木（春） · 巳午火 · 申酉金</td></tr>
+        <tr><td><b>四墓库</b></td><td>金库 <b class="c-jin">丑</b>（阴） · 木库 <b class="c-mu">未</b> · 水库 <b class="c-shui">辰</b>（阴） · 火库 <b class="c-huo">戌</b></td></tr>
+        <tr><td><b>湿土 / 燥土</b></td><td>金水本属阴，土中含水汽为<b>湿土</b>（丑、辰）；木火本属阳，土中含火气为<b>燥土</b>（未、戌）</td></tr>
+        <tr><td><b>阳支</b></td><td><b class="c-mu">寅</b>（春） · <b class="c-huo">巳</b>（夏） · <b class="c-jin">申</b>（秋） · <b class="c-shui">亥</b>（冬），及四隅土 辰、戌、丑、未</td></tr>
+        <tr><td><b>阴支</b></td><td><b class="c-mu">卯</b>木 · <b class="c-huo">午</b>火 · <b class="c-jin">酉</b>金 · <b class="c-shui">子</b>水</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="block">地支关系总纲 <span class="en">会 · 合 · 冲 · 刑 · 害 · 破（穿）</span></h3>
+  <div class="flow-strip" style="font-size:13px">
+    <span class="node">三会</span><span class="op">&gt;</span>
+    <span class="node">三合</span><span class="op">&gt;</span>
+    <span class="node">半合</span><span class="op">≥</span>
+    <span class="node">六合</span><span class="op">≥</span>
+    <span class="node">六冲</span><span class="op">&gt;</span>
+    <span class="node">相刑</span><span class="op">&gt;</span>
+    <span class="node">暗合</span><span class="op">≥</span>
+    <span class="node">六害</span><span class="op">&gt;</span>
+    <span class="node">六破</span>
+  </div>
+
+  <h3 class="block">地支三会局 <span class="en">方合 · 大势已成</span></h3>
+  <p class="note">不必相邻；大运流年可参与；三支齐全，顺序不可颠倒；得局则吉，破局则凶。</p>
+  <div class="rel-grid four">
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">寅卯辰</span><span class="rel-badge b-good">东方木</span></div>
+      <div class="rel-name">春季 · 木局</div>
+      <div class="rel-desc">主春季，代表新生、开拓、仁爱。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">巳午未</span><span class="rel-badge b-bad">南方火</span></div>
+      <div class="rel-name">夏季 · 火局</div>
+      <div class="rel-desc">主夏季，代表文明、热烈、礼信。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-jin">申酉戌</span><span class="rel-badge b-info">西方金</span></div>
+      <div class="rel-name">秋季 · 金局</div>
+      <div class="rel-desc">主秋季，代表肃杀、变革、义气。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-shui">亥子丑</span><span class="rel-badge b-mid">北方水</span></div>
+      <div class="rel-name">冬季 · 水局</div>
+      <div class="rel-desc">主冬季，代表收藏、沉潜、智慧。</div>
+    </div>
+  </div>
+
+  <h3 class="block">六冲 <span class="en">对抗变动 · 逢冲必动</span></h3>
+  <p class="note">主克者力强、月令之位力强、党朋多力强；喜神冲败则凶，凶神冲败反吉。</p>
+  <div class="rel-grid">
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-shui">子</span><span class="rel-arrow">⇄</span><span class="c-huo">午</span><span class="rel-badge b-bad">桃花冲</span></div>
+      <div class="rel-desc">水火相冲，冲突反复，忽冷忽热。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-tu">丑</span><span class="rel-arrow">⇄</span><span class="c-tu">未</span><span class="rel-badge b-mid">湿土燥土</span></div>
+      <div class="rel-desc">家庭琐事，财务积蓄之争。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">寅</span><span class="rel-arrow">⇄</span><span class="c-jin">申</span><span class="rel-badge b-info">驿马冲</span></div>
+      <div class="rel-desc">奔波折腾，竞合博弈。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">卯</span><span class="rel-arrow">⇄</span><span class="c-jin">酉</span><span class="rel-badge b-bad">桃花冲</span></div>
+      <div class="rel-desc">口舌是非，感情分合。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-tu">辰</span><span class="rel-arrow">⇄</span><span class="c-tu">戌</span><span class="rel-badge b-mid">墓库冲</span></div>
+      <div class="rel-desc">翻篇重启，结构调整。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">巳</span><span class="rel-arrow">⇄</span><span class="c-shui">亥</span><span class="rel-badge b-info">巳亥冲</span></div>
+      <div class="rel-desc">跨界远行，理想碰撞。</div>
+    </div>
+  </div>
+
+  <h3 class="block">三合局 <span class="en">局合 · 长生 → 帝旺 → 墓库</span></h3>
+  <div class="rel-grid four">
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-jin">申</span><span class="rel-arrow">·</span><span class="c-shui">子</span><span class="rel-arrow">·</span><span class="c-tu">辰</span><span class="rel-badge b-info">合水局</span></div>
+      <div class="rel-desc">水主智：流动、变通与智慧。冷静善谋，适应力强，善把握流动中的机会。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-shui">亥</span><span class="rel-arrow">·</span><span class="c-mu">卯</span><span class="rel-arrow">·</span><span class="c-tu">未</span><span class="rel-badge b-good">合木局</span></div>
+      <div class="rel-desc">木主仁：生长、仁慈与希望。包容仁爱有韧性，善团队协作，如树木般茁壮成长。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">寅</span><span class="rel-arrow">·</span><span class="c-huo">午</span><span class="rel-arrow">·</span><span class="c-tu">戌</span><span class="rel-badge b-bad">合火局</span></div>
+      <div class="rel-desc">火主礼：热情、光明与行动力。性格外向慷慨，行动力爆棚，感染力强。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">巳</span><span class="rel-arrow">·</span><span class="c-jin">酉</span><span class="rel-arrow">·</span><span class="c-tu">丑</span><span class="rel-badge b-mid">合金局</span></div>
+      <div class="rel-desc">金主义：刚毅、果决与变革。刚毅果断，执行力强，重纪律。</div>
+    </div>
+  </div>
+  <p class="note"><b>半三合</b>：包含帝旺（子午卯酉）的两两组合；<b>拱合</b>：不包含帝旺的两两组合。</p>
+  <h3 class="block">六合 <span class="en">和谐稳定 · 两两相合</span></h3>
+  <p class="note">条件：地支相邻、天干引化、无冲克刑。</p>
+  <div class="rel-grid">
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-shui">子</span><span class="rel-arrow">＋</span><span class="c-tu">丑</span><span class="rel-arrow">合化</span><span class="c-tu">土</span><span class="rel-badge b-mid">泥水之合</span></div>
+      <div class="rel-name">克合</div>
+      <div class="rel-desc">内敛深沉。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">寅</span><span class="rel-arrow">＋</span><span class="c-shui">亥</span><span class="rel-arrow">合化</span><span class="c-mu">木</span><span class="rel-badge b-good">义合</span></div>
+      <div class="rel-desc">滋养生发。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-tu">戌</span><span class="rel-arrow">＋</span><span class="c-mu">卯</span><span class="rel-arrow">合化</span><span class="c-huo">火</span><span class="rel-badge b-bad">木入火库</span></div>
+      <div class="rel-name">克合</div>
+      <div class="rel-desc">浓烈上头。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-tu">辰</span><span class="rel-arrow">＋</span><span class="c-jin">酉</span><span class="rel-arrow">合化</span><span class="c-jin">金</span><span class="rel-badge b-info">龙凤之合</span></div>
+      <div class="rel-name">生合</div>
+      <div class="rel-desc">契约利益。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">巳</span><span class="rel-arrow">＋</span><span class="c-jin">申</span><span class="rel-arrow">合化</span><span class="c-shui">水</span><span class="rel-badge b-bad">刑合</span></div>
+      <div class="rel-desc">相爱相杀。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-huo">午</span><span class="rel-arrow">＋</span><span class="c-tu">未</span><span class="rel-arrow">合化</span><span class="c-tu">土</span><span class="rel-badge b-mid">文明之合</span></div>
+      <div class="rel-name">争合</div>
+      <div class="rel-desc">左右逢源。</div>
+    </div>
+  </div>
+
+  <h3 class="block">暗合（六合四绝） <span class="en">看不见的合 · 暗恋私情</span></h3>
+  <p class="note">貌离神合 / 貌合神离，口蜜腹剑；地支藏干中有合化关系，合中带绝、藏气暗合、本气相克。有合论合，无合论绝（克合），位置不相邻。</p>
+  <div class="tablecard">
+    <table class="fixed">
+      <colgroup><col style="width:26%"><col style="width:24%"><col style="width:50%"></colgroup>
+      <thead><tr><th>暗合</th><th>对应天干合</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>子巳暗合</td><td>戊癸合</td><td class="c-bad">亦为四绝（水火相绝）：感情纠纷，恩绝义断</td></tr>
+        <tr><td>寅午暗合</td><td>甲己合</td><td>—</td></tr>
+        <tr><td>巳酉暗合</td><td>丙辛合</td><td>—</td></tr>
+        <tr><td>卯申暗合</td><td>乙庚合</td><td class="c-bad">亦为四绝（木金相绝）：交通事故，出行不顺</td></tr>
+        <tr><td>寅丑暗合</td><td>甲己合</td><td>—</td></tr>
+        <tr><td>亥午暗合</td><td>甲己合</td><td class="c-bad">亦为四绝（火水相绝）：口舌是非，文书纠纷</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">另有<b>四绝 · 酉寅</b>（金木相绝）：钱财勒索，陷害背刺。</p>
+
+  <h3 class="block">地支刑害 <span class="en">纠结制约，错位背叛</span></h3>
+  <p class="note" style="margin-top:18px"><b>自刑</b>——同支相见，自我纠结（木主生发、向外生长，故无木之自刑）：</p>
+  <div class="rel-grid four">
+    <div class="rel-card"><div class="rel-pair"><span class="c-shui">亥亥</span><span class="rel-badge b-info">自刑·水</span></div><div class="rel-desc">旺水朽木，滥。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-huo">午午</span><span class="rel-badge b-bad">自刑·火</span></div><div class="rel-desc">烈火自焚，躁。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-tu">辰辰</span><span class="rel-badge b-mid">自刑·土</span></div><div class="rel-desc">水库过盈，绕。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-jin">酉酉</span><span class="rel-badge b-info">自刑·金</span></div><div class="rel-desc">利金互伤，挑。</div></div>
+  </div>
+  <p class="note" style="margin-top:22px"><b>相刑</b>——消耗性关系（一味索取，一味付出）：</p>
+  <div class="rel-grid">
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-mu">寅</span><span class="rel-arrow">·</span><span class="c-huo">巳</span><span class="rel-arrow">·</span><span class="c-jin">申</span><span class="rel-badge b-bad">三刑</span></div>
+      <div class="rel-name">无恩之刑（木火金）</div>
+      <div class="rel-desc">寅生巳，巳克申，申反克寅；生克交织，恩怨多。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-tu">丑</span><span class="rel-arrow">·</span><span class="c-tu">戌</span><span class="rel-arrow">·</span><span class="c-tu">未</span><span class="rel-badge b-mid">三刑</span></div>
+      <div class="rel-name">恃势之刑（三土）</div>
+      <div class="rel-desc">丑刑戌，戌刑未，未刑丑；性格不合，纷争起。</div>
+    </div>
+    <div class="rel-card">
+      <div class="rel-pair"><span class="c-shui">子</span><span class="rel-arrow">·</span><span class="c-mu">卯</span><span class="rel-badge b-info">相刑</span></div>
+      <div class="rel-name">无礼之刑（水木）</div>
+      <div class="rel-desc">子刑卯，卯刑子；溺爱引逆反。水不养木，木不化水。</div>
+    </div>
+  </div>
+
+  <p class="note" style="margin-top:22px"><b>六害</b>——六合六冲交叉派生产物；看日主有无根、食伤有无反抗；害而觉醒或害而受创；合能解害，冲能破害。</p>
+  <div class="rel-grid">
+    <div class="rel-card"><div class="rel-pair"><span class="c-shui">子</span><span class="rel-arrow">—</span><span class="c-tu">未</span><span class="rel-badge b-bad">相害</span></div><div class="rel-desc">羊鼠相逢，希望落空。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-tu">丑</span><span class="rel-arrow">—</span><span class="c-huo">午</span><span class="rel-badge b-bad">相害</span></div><div class="rel-desc">牛头不对马嘴；阴火入湿库，貌合神离。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-mu">寅</span><span class="rel-arrow">—</span><span class="c-huo">巳</span><span class="rel-badge b-bad">相害</span></div><div class="rel-desc">刑中带害；木火自燃，傲慢不服。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-mu">卯</span><span class="rel-arrow">—</span><span class="c-tu">辰</span><span class="rel-badge b-bad">相害</span></div><div class="rel-desc">青草遍野，边界践踏。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-jin">申</span><span class="rel-arrow">—</span><span class="c-shui">亥</span><span class="rel-badge b-bad">相害</span></div><div class="rel-desc">水多金沉，易犯小人。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-jin">酉</span><span class="rel-arrow">—</span><span class="c-tu">戌</span><span class="rel-badge b-bad">相害</span></div><div class="rel-desc">鸡犬不宁；燥土脆金，明嘲暗讽。</div></div>
+  </div>
+
+  <h3 class="block">地支相破（穿） <span class="en">内部损耗，关系裂痕</span></h3>
+  <div class="rel-grid">
+    <div class="rel-card"><div class="rel-pair"><span class="c-shui">子</span><span class="rel-arrow">—</span><span class="c-jin">酉</span><span class="rel-badge b-info">相破</span></div><div class="rel-desc">反复拉扯，生性多疑。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-tu">丑</span><span class="rel-arrow">—</span><span class="c-tu">辰</span><span class="rel-badge b-mid">相破</span></div><div class="rel-desc">财库受损，心气不顺。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-mu">寅</span><span class="rel-arrow">—</span><span class="c-shui">亥</span><span class="rel-badge b-info">相破</span></div><div class="rel-desc">合中带破；无恩之合，相互拆台（过度失衡）。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-mu">卯</span><span class="rel-arrow">—</span><span class="c-huo">午</span><span class="rel-badge b-bad">相破</span></div><div class="rel-desc">相爱相杀，好心办错事。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-huo">巳</span><span class="rel-arrow">—</span><span class="c-jin">申</span><span class="rel-badge b-bad">相破</span></div><div class="rel-desc">破中带刑；互相算计，勾心斗角。</div></div>
+    <div class="rel-card"><div class="rel-pair"><span class="c-tu">未</span><span class="rel-arrow">—</span><span class="c-tu">戌</span><span class="rel-badge b-mid">相破</span></div><div class="rel-desc">刑中相破；心思深沉，名声扫地。</div></div>
+  </div>
+
+  <h3 class="block">地支年支算法 <span class="en">十二年一循环</span></h3>
+  <p class="note">公元 4 年为甲子年，子对应数字 4；年份除以 12 取余数：</p>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>余数</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead>
+      <tbody><tr>
+        <td><b>地支</b></td>
+        <td class="gan c-shui">子</td><td class="gan c-tu">丑</td><td class="gan c-mu">寅</td><td class="gan c-mu">卯</td>
+        <td class="gan c-tu">辰</td><td class="gan c-huo">巳</td><td class="gan c-huo">午</td><td class="gan c-tu">未</td>
+        <td class="gan c-jin">申</td><td class="gan c-jin">酉</td><td class="gan c-tu">戌</td><td class="gan c-shui">亥</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <p class="note">例：2026 ÷ 12 = 168 余 10 → 午；故 2026 年为<b>丙午年</b>。</p>
+
+  <h3 class="block">地支藏干 <span class="en">本气 · 中气 · 余气</span></h3>
+  <div class="tablecard">
+    <table class="fixed" style="font-size:13px">
+      <colgroup><col style="width:11%"><col span="12" style="width:7.4%"></colgroup>
+      <thead><tr><th>地支</th><th>子</th><th>丑</th><th>寅</th><th>卯</th><th>辰</th><th>巳</th><th>午</th><th>未</th><th>申</th><th>酉</th><th>戌</th><th>亥</th></tr></thead>
+      <tbody>
+        <tr><td><b>本气</b></td>
+          <td class="c-shui">癸水<br>100%</td><td class="c-tu">己土<br>60%</td><td class="c-mu">甲木<br>60%</td><td class="c-mu">乙木<br>100%</td>
+          <td class="c-tu">戊土<br>60%</td><td class="c-huo">丙火<br>60%</td><td class="c-huo">丁火<br>70%</td><td class="c-tu">己土<br>60%</td>
+          <td class="c-jin">庚金<br>100%</td><td class="c-jin">辛金<br>100%</td><td class="c-tu">戊土<br>60%</td><td class="c-shui">壬水<br>70%</td></tr>
+        <tr><td><b>中气</b></td>
+          <td>—</td><td class="c-shui">癸水<br>30%</td><td class="c-huo">丙火<br>30%</td><td>—</td>
+          <td class="c-mu">乙木<br>30%</td><td class="c-jin">庚金<br>30%</td><td class="c-tu">己土<br>30%</td><td class="c-huo">丁火<br>30%</td>
+          <td class="c-shui">壬水<br>30%</td><td>—</td><td class="c-jin">辛金<br>30%</td><td class="c-mu">甲木<br>30%</td></tr>
+        <tr><td><b>余气</b></td>
+          <td>—</td><td class="c-jin">辛金<br>10%</td><td class="c-tu">戊土<br>10%</td><td>—</td>
+          <td class="c-shui">癸水<br>10%</td><td class="c-tu">戊土<br>10%</td><td>—</td><td class="c-mu">乙木<br>10%</td>
+          <td class="c-tu">戊土<br>10%</td><td>—</td><td class="c-huo">丁火<br>10%</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  </div>
+ </section>
+ <section class="pane" id="pane-inter">
+  <div class="wrap">
+   <nav class="tabbar">
+    <button class="tab-btn active" data-view="v1"><span class="idx">壹</span>五行生克盘</button>
+    <button class="tab-btn" data-view="v2"><span class="idx">贰</span>天干关系盘</button>
+    <button class="tab-btn" data-view="v3"><span class="idx">叁</span>地支关系盘</button>
+    <button class="tab-btn" data-view="v4"><span class="idx">肆</span>干支纪年</button>
+  </nav>
+   <section class="subview active" id="iv1">
+    <div class="workbench">
+      <div class="stage"><svg id="wxSvg" viewBox="0 0 600 600" role="img" aria-label="五行生克盘"></svg></div>
+      <aside class="panel">
+        <h2>五行生克盘</h2>
+        <div class="hint">按方位排列：东木 · 南火 · 西金 · 北水 · 中土。点击任一五行，查看它与其余四行的 生 / 泄 / 克 / 耗 /助 关系。</div>
+        <div class="mode-row">
+          <button class="mode-btn on" data-wm="all">全部</button>
+          <button class="mode-btn" data-wm="sheng">只看相生</button>
+          <button class="mode-btn" data-wm="ke">只看相克</button>
+        </div>
+        <div class="legend">
+          <div class="legend-row"><span class="legend-line" style="border-color:var(--mu)"></span>相生（外圈循环：木→火→土→金→水→木）</div>
+          <div class="legend-row"><span class="legend-line dash" style="border-top:3px dashed var(--cinnabar)"></span>相克（隔一相克：木→土→水→火→金→木）</div>
+        </div>
+        <div class="detail" id="wxDetail"></div>
+      </aside>
+    </div>
+  </section>
+<section class="subview" id="iv2">
+    <div class="workbench">
+      <div class="stage"><svg id="ganSvg" viewBox="0 0 600 600" role="img" aria-label="天干关系盘"></svg></div>
+      <aside class="panel">
+        <h2>天干关系盘</h2>
+        <div class="hint">阳干实心、阴干空心；甲乙东、丙丁南、庚辛西、壬癸北。点击天干查看意象，开关图层查看五合与四冲。</div>
+        <div class="layer-toggles">
+          <button class="layer-btn on" data-gl="he" style="--lc:var(--mu)">天干五合</button>
+          <button class="layer-btn" data-gl="chong" style="--lc:var(--huo)">天干四冲</button>
+        </div>
+        <div class="legend">
+          <div class="legend-row"><span class="legend-line" style="border-color:var(--mu)"></span>五合：阴阳异克，合而化之</div>
+          <div class="legend-row"><span class="legend-line" style="border-color:var(--huo)"></span>四冲：阴阳同克，冲而动之</div>
+        </div>
+        <div class="detail" id="ganDetail"></div>
+      </aside>
+    </div>
+  </section>
+<section class="subview" id="iv3">
+    <div class="workbench">
+      <div class="stage"><svg id="zhiSvg" viewBox="0 0 600 600" role="img" aria-label="地支关系盘"></svg></div>
+      <aside class="panel">
+        <h2>地支关系盘</h2>
+        <div class="hint">上南（午）下北（子）、左东（卯）右西（酉）。点击地支查看意象与藏干；点开图层，不同颜色对应不同关系，可叠加对照。</div>
+        <div class="layer-toggles" id="zhiLayerBtns">
+          <button class="layer-btn on" data-zl="hui" style="--lc:#3f8f6b">三会</button>
+          <button class="layer-btn" data-zl="sanhe" style="--lc:#35587d">三合</button>
+          <button class="layer-btn" data-zl="liuhe" style="--lc:#d9832e">六合</button>
+          <button class="layer-btn" data-zl="chong" style="--lc:#c44532">六冲</button>
+          <button class="layer-btn" data-zl="xing" style="--lc:#8e5aa0">相刑</button>
+          <button class="layer-btn" data-zl="hai" style="--lc:#9b6d3f">六害</button>
+          <button class="layer-btn" data-zl="po" style="--lc:#7a7568">六破</button>
+          <button class="layer-btn" data-zl="anhe" style="--lc:#2e6fa7">暗合</button>
+        </div>
+        <div class="detail" id="zhiDetail"></div>
+      </aside>
+    </div>
+  </section>
+<section class="subview" id="iv4">
+    <div class="calc-box">
+      <div class="calc-input">
+        <label for="yearInput">公历年份</label>
+        <input id="yearInput" type="number" value="2026" min="-9999" max="9999">
+        <button class="calc-go" id="calcGo">推算</button>
+      </div>
+      <div class="calc-result">
+        <div class="gz"><span class="g" id="resGan">丙</span><span id="resZhi">午</span></div>
+        <div class="meta" id="resMeta">2026 年 · 丙午年 · 生肖马</div>
+      </div>
+      <div class="mini-disks">
+        <div class="mini-disk"><h3>年干定位</h3><svg id="miniGan"></svg></div>
+        <div class="mini-disk"><h3>年支定位</h3><svg id="miniZhi"></svg></div>
+      </div>
+      <div class="calc-method">
+        <h3>推算方法</h3>
+        <p>公元 4 年为甲子年，干支各按顺序循环：天干十年一轮、地支十二年一轮。</p>
+        <p style="margin-top:6px">年干：看年份尾数 —— 甲4 乙5 丙6 丁7 戊8 己9 庚0 辛1 壬2 癸3；</p>
+        <p style="margin-top:6px">年支：<code>年份 ÷ 12 取余数</code> —— 子4 丑5 寅6 卯7 辰8 巳9 午10 未11 申0 酉1 戌2 亥3。</p>
+        <p style="margin-top:6px">例：2026 尾数 6 → 丙；2026 ÷ 12 = 168 余 10 → 午；合为丙午年。</p>
+      </div>
+    </div>
+  </section>
+  </div>
+ </section>
+ <section class="pane" id="pane-cards">
+  
+<div class="study-wrap">
+  <div id="deckPick">
+    <div class="deck-grid" id="deckGrid"></div>
+    <p class="study-note">进度自动保存在本浏览器（localStorage）：不认识的卡片会在本轮再次出现，认识/简单的卡片按间隔日后复习。</p>
+    <button class="btn-ghost" id="resetProgress">重置全部学习进度</button>
+  </div>
+  <div id="studySession" style="display:none">
+    <div class="study-top">
+      <span class="sd-name" id="sdName"></span>
+      <div class="progress-bar"><div id="progressFill"></div></div>
+      <span class="sd-prog" id="sdProg"></span>
+    </div>
+    <div class="flashcard" id="flashcard">
+      <div class="face face-front" id="faceFront"></div>
+      <div class="face face-back" id="faceBack"></div>
+    </div>
+    <div class="flip-hint" id="flipHint">点击卡片或按空格，显示答案</div>
+    <div class="study-actions" id="studyActions" style="display:none">
+      <button id="rateAgain"><b>不认识</b><span>1 · 本轮再来</span></button>
+      <button id="rateGood"><b>认识</b><span>2 / 空格</span></button>
+      <button id="rateEasy"><b>简单</b><span>3 · 拉长间隔</span></button>
+    </div>
+    <button class="btn-ghost" id="quitStudy">退出本轮</button>
+  </div>
+  <div id="doneScreen" style="display:none"></div>
+</div>
+
+ </section>
+</main>
+<script>
+
+/* ===== Tab 切换 ===== */
+var tabBtns=document.querySelectorAll('.tab-btn');
+tabBtns.forEach(function(b){
+  b.addEventListener('click',function(){
+    tabBtns.forEach(function(x){x.classList.remove('active')});
+    b.classList.add('active');
+    document.querySelectorAll('.subview').forEach(function(v){v.classList.remove('active')});
+    document.getElementById('i'+b.dataset.view).classList.add('active');
+  });
+});
+
+/* ===== 公共数据 ===== */
+var WX={mu:{char:'木',color:getCSS('--mu'),virtue:'仁',yue:'曲直'},
+        huo:{char:'火',color:getCSS('--huo'),virtue:'礼',yue:'炎上'},
+        tu:{char:'土',color:getCSS('--tu'),virtue:'信',yue:'稼穑'},
+        jin:{char:'金',color:getCSS('--jin'),virtue:'义',yue:'从革'},
+        shui:{char:'水',color:getCSS('--shui'),virtue:'智',yue:'润下'}};
+function getCSS(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+function polar(cx,cy,r,deg){var a=deg*Math.PI/180;return{x:cx+r*Math.sin(a),y:cy-r*Math.cos(a)}}
+var SVGNS='http://www.w3.org/2000/svg';
+function el(tag,attrs,txt){var e=document.createElementNS(SVGNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(txt!=null)e.textContent=txt;return e}
+
+/* ==================== 模块一 · 五行生克盘 ==================== */
+(function(){
+  var svg=document.getElementById('wxSvg');
+  // 方位布局：木东(左) 火南(上) 金西(右) 水北(下) 土中
+  var POS={mu:{x:118,y:300,icon:'🌳'},huo:{x:300,y:112,icon:'🔥'},jin:{x:482,y:300,icon:'🪙'},shui:{x:300,y:488,icon:'💧'},tu:{x:300,y:300,icon:'⛰️'}};
+  var SHENG=[['mu','huo'],['huo','tu'],['tu','jin'],['jin','shui'],['shui','mu']]; // 相生
+  var KE=[['mu','tu'],['tu','shui'],['shui','huo'],['huo','jin'],['jin','mu']];      // 相克
+  // 以某五行为主体：生(生我) 泄(我生) 克(克我) 耗(我克) 助(同我)
+  var REL={
+    mu:{sheng:'shui',xie:'huo',ke:'jin',hao:'tu',zhu:'mu'},
+    huo:{sheng:'mu',xie:'tu',ke:'shui',hao:'jin',zhu:'huo'},
+    tu:{sheng:'huo',xie:'jin',ke:'mu',hao:'shui',zhu:'tu'},
+    jin:{sheng:'tu',xie:'shui',ke:'huo',hao:'mu',zhu:'jin'},
+    shui:{sheng:'jin',xie:'mu',ke:'tu',hao:'huo',zhu:'shui'}
+  };
+  var RELNAME={sheng:['生','生我者为生'],xie:['泄','我生者为泄'],ke:['克','克我者为克'],hao:['耗','我克者为耗'],zhu:['助','同我者为助']};
+  var lines={};
+  // 方位标签
+  [['东',60,300],['南',300,52],['西',540,300],['北',300,552]].forEach(function(d){
+    svg.appendChild(el('text',{x:d[1],y:d[2],class:'dir-label'},d[0]));
+  });
+  svg.appendChild(el('circle',{cx:300,cy:300,r:238,class:'compass-ring'}));
+  // 关系线
+  var lineLayer=el('g',{});svg.appendChild(lineLayer);
+  SHENG.forEach(function(p){
+    var l=el('line',{x1:POS[p[0]].x,y1:POS[p[0]].y,x2:POS[p[1]].x,y2:POS[p[1]].y,
+      stroke:WX[p[0]].color,'class':'rel-line show'});
+    lineLayer.appendChild(l);lines['s_'+p[0]+p[1]]=l;
+  });
+  KE.forEach(function(p){
+    var l=el('line',{x1:POS[p[0]].x,y1:POS[p[0]].y,x2:POS[p[1]].x,y2:POS[p[1]].y,
+      stroke:getCSS('--cinnabar'),'class':'rel-line show dash'});
+    lineLayer.appendChild(l);lines['k_'+p[0]+p[1]]=l;
+  });
+  // 节点
+  var circles={};
+  Object.keys(POS).forEach(function(k){
+    var g=el('g',{class:'node-group'});
+    var c=el('circle',{cx:POS[k].x,cy:POS[k].y,r:k==='tu'?72:68,fill:WX[k].color,class:'node-circle'});
+    g.appendChild(c);circles[k]=c;
+    g.appendChild(el('text',{x:POS[k].x,y:POS[k].y-20,style:'font-size:28px;text-anchor:middle;dominant-baseline:central'},POS[k].icon));
+    var t=el('text',{x:POS[k].x,y:POS[k].y+5,class:'node-char',style:'font-size:23px'},WX[k].char);
+    g.appendChild(t);
+    var t2=el('text',{x:POS[k].x,y:POS[k].y+28,class:'node-char',style:'font-size:13px;opacity:.9'},'主'+WX[k].virtue);
+    g.appendChild(t2);
+    g.addEventListener('click',function(){pick(k)});
+    svg.appendChild(g);
+  });
+  var mode='all',picked=null;
+  document.querySelectorAll('[data-wm]').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-wm]').forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on');mode=b.dataset.wm;render();
+    });
+  });
+  function pick(k){picked=(picked===k)?null:k;render()}
+  function render(){
+    // 模式显隐
+    SHENG.forEach(function(p){var l=lines['s_'+p[0]+p[1]];l.classList.toggle('show',mode!=='ke');l.classList.remove('dim')});
+    KE.forEach(function(p){var l=lines['k_'+p[0]+p[1]];l.classList.toggle('show',mode!=='sheng');l.classList.remove('dim')});
+    Object.keys(circles).forEach(function(k){circles[k].classList.remove('picked','dimmed')});
+    if(picked){
+      var r=REL[picked];
+      // 高亮五条关系线
+      var map=[['sheng','s_'],['xie','s_'],['ke','k_'],['hao','k_']];
+      map.forEach(function(m){
+        var type=m[0],other=r[type],key;
+        if(type==='sheng') key=m[1]+other+picked;       // 生我：other→我（相生线）
+        else if(type==='xie') key=m[1]+picked+other;   // 我生：我→other
+        else if(type==='ke') key=m[1]+other+picked;    // 克我：other→我（相克线）
+        else key=m[1]+picked+other;                    // 我克：我→other
+        var l=lines[key];
+        if(l){l.classList.add('show');l.classList.remove('dim');l.style.stroke=WX[(type==='ke'||type==='hao')? (type==='ke'?other:picked) : (type==='sheng'?other:picked)].color}
+      });
+      // 其余线变淡
+      Object.keys(lines).forEach(function(kk){var l=lines[kk];if(!l.classList.contains('dim') && !isRelLine(kk))l.classList.add('dim')});
+      function isRelLine(kk){
+        var keys=map.map(function(m){
+          var type=m[0],other=r[type];
+          if(type==='sheng')return 's_'+other+picked;
+          if(type==='xie')return 's_'+picked+other;
+          if(type==='ke')return 'k_'+other+picked;
+          return 'k_'+picked+other;
+        });
+        return keys.indexOf(kk)>=0;
+      }
+      Object.keys(circles).forEach(function(k){if(k!==picked&&k!=='tu'&& Object.keys(r).indexOf(findKey(r,k))<0 && k!==r.sheng&&k!==r.xie&&k!==r.ke&&k!==r.hao)circles[k].classList.add('dimmed')});
+      circles[picked].classList.add('picked');
+      renderDetail();
+    }else{
+      Object.keys(lines).forEach(function(kk){lines[kk].classList.remove('dim');lines[kk].style.stroke=''});
+      // 恢复默认颜色
+      SHENG.forEach(function(p){lines['s_'+p[0]+p[1]].style.stroke=WX[p[0]].color});
+      KE.forEach(function(p){lines['k_'+p[0]+p[1]].style.stroke=getCSS('--cinnabar')});
+      document.getElementById('wxDetail').innerHTML='<div class="hint" style="margin:0">点击盘中任一五行，这里会列出它的五种关系。</div>';
+    }
+  }
+  function findKey(r,k){for(var kk in r)if(r[kk]===k)return kk;return null}
+  function renderDetail(){
+    var r=REL[picked],w=WX[picked],html='';
+    html+='<div class="detail-title"><span class="detail-char" style="background:'+w.color+'">'+w.char+'</span>'+
+          '<span><span class="detail-name">'+w.char+' · 主'+w.virtue+'</span><br><span class="detail-sub">'+w.char+'曰'+w.yue+'</span></span></div>';
+    html+='<div class="rel-list">';
+    ['sheng','xie','ke','hao','zhu'].forEach(function(t){
+      var other=r[t],ow=WX[other];
+      var ex={sheng:ow.char+'生'+w.char,xie:w.char+'生'+ow.char,ke:ow.char+'克'+w.char,hao:w.char+'克'+ow.char,zhu:'同气相应'}[t];
+      html+='<div class="rel-item"><span class="rel-tag" style="background:'+ow.color+'">'+RELNAME[t][0]+'</span>'+
+            '<span class="who">'+ow.char+'</span><span class="ex">'+ex+'<br>'+RELNAME[t][1]+'</span></div>';
+    });
+    html+='</div>';
+    document.getElementById('wxDetail').innerHTML=html;
+  }
+  render();
+})();
+
+/* ==================== 公共数据 · 天干 / 地支 ==================== */
+var GAN=[
+ {c:'甲',yy:'yang',wx:'mu',icon:'🌳',sky:'雷',earth:'大树',zhu:'生发'},
+ {c:'乙',yy:'yin',wx:'mu',icon:'🌿',sky:'风',earth:'花草',zhu:'创造'},
+ {c:'丙',yy:'yang',wx:'huo',icon:'☀️',sky:'日',earth:'篝火',zhu:''},
+ {c:'丁',yy:'yin',wx:'huo',icon:'🕯️',sky:'星',earth:'烛火',zhu:''},
+ {c:'戊',yy:'yang',wx:'tu',icon:'⛰️',sky:'霜',earth:'山',zhu:'承载'},
+ {c:'己',yy:'yin',wx:'tu',icon:'🌾',sky:'气',earth:'沃土',zhu:'稳定'},
+ {c:'庚',yy:'yang',wx:'jin',icon:'🪓',sky:'雾',earth:'矿',zhu:'变革'},
+ {c:'辛',yy:'yin',wx:'jin',icon:'🌙',sky:'月',earth:'金（珠玉）',zhu:''},
+ {c:'壬',yy:'yang',wx:'shui',icon:'🌊',sky:'云',earth:'海',zhu:'浩荡'},
+ {c:'癸',yy:'yin',wx:'shui',icon:'🌧️',sky:'雨',earth:'河（雨露）',zhu:'沉淀'}
+];
+var GAN_ANG=[252,288,324,0,36,72,108,144,180,216];
+var GAN_HE=[
+ {a:0,b:5,h:'tu',name:'中正之合',img:'农具与武器，稳中求进'},
+ {a:1,b:6,h:'jin',name:'仁义之合',img:'剑刃与剑穗，刚柔并济'},
+ {a:2,b:7,h:'shui',name:'威制之合',img:'法治与德治，上传下达'},
+ {a:3,b:8,h:'mu',name:'淫匿之合',img:'星辰与大海，浪漫多情'},
+ {a:4,b:9,h:'huo',name:'无情之合',img:'理想与现实，知行合一'}
+];
+var GAN_CHONG=[
+ {a:0,b:6,name:'甲庚冲',img:'利斧与巨木 —— 毁灭与新生'},
+ {a:1,b:7,name:'乙辛冲',img:'绣花针与常春藤 —— 灵性与规训'},
+ {a:2,b:8,name:'丙壬冲',img:'烈阳与深海 —— 喧嚣与孤独'},
+ {a:3,b:9,name:'丁癸冲',img:'烛火与雨雾 —— 希望与虚无'}
+];
+var ZHI=[
+ {c:'子',wx:'shui',yy:'yin',icon:'🐀',mean:'兹',img:'万物滋养生发',animal:'鼠'},
+ {c:'丑',wx:'tu',yy:'yin',icon:'🐂',mean:'纽',img:'冬春交替，向死而生',animal:'牛'},
+ {c:'寅',wx:'mu',yy:'yang',icon:'🐯',mean:'演',img:'万物开始生长',animal:'虎'},
+ {c:'卯',wx:'mu',yy:'yin',icon:'🐇',mean:'冒',img:'万物冒土而出',animal:'兔'},
+ {c:'辰',wx:'tu',yy:'yang',icon:'🐲',mean:'震',img:'万物震动生长',animal:'龙'},
+ {c:'巳',wx:'huo',yy:'yin',icon:'🐍',mean:'已',img:'万物初长成',animal:'蛇'},
+ {c:'午',wx:'huo',yy:'yang',icon:'🐴',mean:'仵',img:'夏秋交替，生生不息',animal:'马'},
+ {c:'未',wx:'tu',yy:'yin',icon:'🐑',mean:'味',img:'万物已有滋味',animal:'羊'},
+ {c:'申',wx:'jin',yy:'yang',icon:'🐵',mean:'身',img:'万物形体已成',animal:'猴'},
+ {c:'酉',wx:'jin',yy:'yin',icon:'🐔',mean:'秀',img:'万物成熟丰盈，稻谷飘香',animal:'鸡'},
+ {c:'戌',wx:'tu',yy:'yang',icon:'🐶',mean:'灭',img:'万物重归于土',animal:'狗'},
+ {c:'亥',wx:'shui',yy:'yang',icon:'🐷',mean:'核',img:'成种收获',animal:'猪'}
+];
+var ZHI_ANG=[180,210,240,270,300,330,0,30,60,90,120,150];
+// 地支关系图层：key -> {color, dash, pairs:[{a,b,name,desc}]}
+var ZHI_LAYERS={
+ hui:{color:'#3f8f6b',pairs:[
+   {a:2,b:3,c:4,name:'寅卯辰 · 东方木',desc:'春季，新生、开拓、仁爱'},
+   {a:5,b:6,c:7,name:'巳午未 · 南方火',desc:'夏季，文明、热烈、礼信'},
+   {a:8,b:9,c:10,name:'申酉戌 · 西方金',desc:'秋季，肃杀、变革、义气'},
+   {a:11,b:0,c:1,name:'亥子丑 · 北方水',desc:'冬季，收藏、沉潜、智慧'}]},
+ sanhe:{color:'#35587d',pairs:[
+   {a:8,b:0,c:4,name:'申子辰 · 合水局',desc:'主智，冷静善谋，流动变通'},
+   {a:11,b:3,c:7,name:'亥卯未 · 合木局',desc:'主仁，包容有韧性，团队协作'},
+   {a:2,b:6,c:10,name:'寅午戌 · 合火局',desc:'主礼，热情外向，行动力强'},
+   {a:5,b:9,c:1,name:'巳酉丑 · 合金局',desc:'主义，刚毅果断，重纪律'}]},
+ liuhe:{color:'#d9832e',pairs:[
+   {a:0,b:1,name:'子丑合化土',desc:'泥水之合 · 克合，内敛深沉'},
+   {a:2,b:11,name:'寅亥合化木',desc:'义合，滋养生发'},
+   {a:10,b:3,name:'戌卯合化火',desc:'木入火库 · 克合，浓烈上头'},
+   {a:4,b:9,name:'辰酉合化金',desc:'龙凤之合 · 生合，契约利益'},
+   {a:5,b:8,name:'巳申合化水',desc:'刑合，相爱相杀'},
+   {a:6,b:7,name:'午未合化土',desc:'文明之合 · 争合，左右逢源'}]},
+ chong:{color:'#c44532',pairs:[
+   {a:0,b:6,name:'子午冲（桃花）',desc:'冲突反复，忽冷忽热'},
+   {a:1,b:7,name:'丑未冲（湿燥土）',desc:'家庭琐事，财务积蓄'},
+   {a:2,b:8,name:'寅申冲（驿马）',desc:'奔波折腾，竞合博弈'},
+   {a:3,b:9,name:'卯酉冲（桃花）',desc:'口舌是非，感情分合'},
+   {a:4,b:10,name:'辰戌冲（墓库）',desc:'翻篇重启，结构调整'},
+   {a:5,b:11,name:'巳亥冲',desc:'跨界远行，理想碰撞'}]},
+ xing:{color:'#8e5aa0',pairs:[
+   {a:2,b:5,c:8,name:'寅巳申 · 无恩之刑',desc:'生克交织，恩怨多'},
+   {a:1,b:10,c:7,name:'丑戌未 · 恃势之刑',desc:'性格不合，纷争起'},
+   {a:0,b:3,name:'子卯 · 无礼之刑',desc:'溺爱引逆反，消耗性关系'}]},
+ hai:{color:'#9b6d3f',dash:true,pairs:[
+   {a:0,b:7,name:'子未相害',desc:'羊鼠相逢，希望落空'},
+   {a:1,b:6,name:'丑午相害',desc:'阴火入湿库，貌合神离'},
+   {a:2,b:5,name:'寅巳相害',desc:'刑中带害，傲慢不服'},
+   {a:3,b:4,name:'卯辰相害',desc:'青草遍野，边界践踏'},
+   {a:8,b:11,name:'申亥相害',desc:'水多金沉，易犯小人'},
+   {a:9,b:10,name:'酉戌相害',desc:'鸡犬不宁，明嘲暗讽'}]},
+ po:{color:'#7a7568',dash:true,pairs:[
+   {a:0,b:9,name:'子酉相破',desc:'反复拉扯，生性多疑'},
+   {a:1,b:4,name:'丑辰相破',desc:'财库受损，心气不顺'},
+   {a:2,b:11,name:'寅亥相破',desc:'合中带破，相互拆台'},
+   {a:3,b:6,name:'卯午相破',desc:'相爱相杀，好心办错事'},
+   {a:5,b:8,name:'巳申相破',desc:'破中带刑，勾心斗角'},
+   {a:7,b:10,name:'未戌相破',desc:'刑中相破，名声扫地'}]},
+ anhe:{color:'#2e6fa7',dash:true,pairs:[
+   {a:0,b:5,name:'子巳暗合（戊癸合）',desc:'水火相绝：感情纠纷，恩绝义断'},
+   {a:2,b:6,name:'寅午暗合（甲己合）',desc:'暗恋私情，貌离神合'},
+   {a:5,b:9,name:'巳酉暗合（丙辛合）',desc:'暗恋私情'},
+   {a:3,b:8,name:'卯申暗合（乙庚合）',desc:'木金相绝：交通事故，出行不顺'},
+   {a:2,b:1,name:'寅丑暗合（甲己合）',desc:'暗恋私情'},
+   {a:11,b:6,name:'亥午暗合（甲己合）',desc:'火水相绝：口舌是非，文书纠纷'}]}
+};
+var ZHI_LAYER_NAME={hui:'三会',sanhe:'三合',liuhe:'六合',chong:'六冲',xing:'相刑',hai:'六害',po:'六破',anhe:'暗合'};
+var ZHI_CANGGAN={
+ 0:[['癸水','100%']],1:[['己土','60%'],['癸水','30%'],['辛金','10%']],2:[['甲木','60%'],['丙火','30%'],['戊土','10%']],
+ 3:[['乙木','100%']],4:[['戊土','60%'],['乙木','30%'],['癸水','10%']],5:[['丙火','60%'],['庚金','30%'],['戊土','10%']],
+ 6:[['丁火','70%'],['己土','30%']],7:[['己土','60%'],['丁火','30%'],['乙木','10%']],8:[['庚金','100%'],['壬水','30%'],['戊土','10%']],
+ 9:[['辛金','100%']],10:[['戊土','60%'],['辛金','30%'],['丁火','10%']],11:[['壬水','70%'],['甲木','30%']]
+};
+
+/* ==================== 通用渲染 · 天干盘 ==================== */
+function renderGanDisk(svg,o){
+  o=o||{};
+  var size=o.size||600,cx=size/2,cy=size/2,R=o.R||232,nr=o.nr||45;
+  svg.innerHTML='';
+  svg.setAttribute('viewBox','0 0 '+size+' '+size);
+  if(!o.small){svg.appendChild(el('circle',{cx:cx,cy:cy,r:R+nr+14,class:'compass-ring'}));}
+  var ll=el('g',{});svg.appendChild(ll);
+  // 五合
+  if(o.he)GAN_HE.forEach(function(h){
+    var p1=polar(cx,cy,R,GAN_ANG[h.a]),p2=polar(cx,cy,R,GAN_ANG[h.b]);
+    ll.appendChild(el('line',{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:WX.mu.color,'stroke-width':o.small?2:3,class:'rel-line show',opacity:.8}));
+  });
+  // 四冲
+  if(o.chong)GAN_CHONG.forEach(function(h){
+    var p1=polar(cx,cy,R,GAN_ANG[h.a]),p2=polar(cx,cy,R,GAN_ANG[h.b]);
+    ll.appendChild(el('line',{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:WX.huo.color,'stroke-width':o.small?2:3,class:'rel-line show',opacity:.8}));
+  });
+  GAN.forEach(function(g,i){
+    var p=polar(cx,cy,R,GAN_ANG[i]),col=WX[g.wx].color;
+    var gg=el('g',{class:'node-group'});
+    var isYang=g.yy==='yang';
+    var c=el('circle',{cx:p.x,cy:p.y,r:nr,fill:isYang?col:'#fbf7ec',stroke:col,'stroke-width':2.5,
+      class:'node-circle'+(o.picked===i?' picked':'')});
+    if(o.picked!=null&&o.picked!==i)c.setAttribute('opacity','.35');
+    gg.appendChild(c);
+    gg.appendChild(el('text',{x:p.x,y:p.y-(o.small?9:13),style:'font-size:'+(o.small?15:23)+'px;text-anchor:middle;dominant-baseline:central'},g.icon));
+    gg.appendChild(el('text',{x:p.x,y:p.y+(o.small?10:14),class:'node-char',style:'font-size:'+(o.small?13:19)+'px;fill:'+(isYang?'#fff':col)},g.c));
+    if(!o.small){
+      var lp=polar(cx,cy,R+nr+13,GAN_ANG[i]);
+      gg.appendChild(el('text',{x:lp.x,y:lp.y,class:'node-sub'},g.yy==='yang'?'阳':'阴'));
+    }
+    if(o.onPick)gg.addEventListener('click',function(){o.onPick(i)});
+    svg.appendChild(gg);
+  });
+}
+
+/* ==================== 模块二 · 天干关系盘控制 ==================== */
+(function(){
+  var layers={he:true,chong:false},picked=null;
+  function redraw(){renderGanDisk(document.getElementById('ganSvg'),{he:layers.he,chong:layers.chong,picked:picked,onPick:function(i){picked=(picked===i)?null:i;redraw()}});
+    renderDetail();
+  }
+  document.querySelectorAll('[data-gl]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.gl;layers[k]=!layers[k];b.classList.toggle('on',layers[k]);redraw();
+    });
+  });
+  function renderDetail(){
+    var box=document.getElementById('ganDetail');
+    if(picked==null){box.innerHTML='<div class="hint" style="margin:0">点击任一天干，这里显示它的阴阳、五行与「在天 / 在地」意象。</div>';return}
+    var g=GAN[picked],col=WX[g.wx].color;
+    var html='<div class="detail-title"><span class="detail-char" style="background:'+col+'">'+g.c+'</span>'+
+      '<span><span class="detail-name">'+g.c+' · '+g.wx.charAt(0)+'行'+(g.yy==='yang'?' · 阳干':' · 阴干')+'</span><br>'+
+      '<span class="detail-sub">在天为'+g.sky+'，在地为'+g.earth+(g.zhu?'，主'+g.zhu:'')+'</span></span></div>';
+    // 该干参与的合冲
+    var he=GAN_HE.filter(function(h){return h.a===picked||h.b===picked});
+    var ch=GAN_CHONG.filter(function(h){return h.a===picked||h.b===picked});
+    html+='<div class="rel-list">';
+    he.forEach(function(h){var other=h.a===picked?h.b:h.a;
+      html+='<div class="rel-item"><span class="rel-tag" style="background:var(--mu)">合</span><span class="who">与 '+GAN[other].c+'</span><span class="ex">化'+WX[h.h].char+' · '+h.name+'<br>'+h.img+'</span></div>'});
+    ch.forEach(function(h){var other=h.a===picked?h.b:h.a;
+      html+='<div class="rel-item"><span class="rel-tag" style="background:var(--huo)">冲</span><span class="who">与 '+GAN[other].c+'</span><span class="ex">'+h.name+'<br>'+h.img+'</span></div>'});
+    html+='</div>';
+    box.innerHTML=html;
+  }
+  redraw();
+})();
+
+/* ==================== 通用渲染 · 地支盘 ==================== */
+function renderZhiDisk(svg,o){
+  o=o||{};
+  var size=o.size||600,cx=size/2,cy=size/2,R=o.R||230,nr=o.nr||46;
+  svg.innerHTML='';
+  svg.setAttribute('viewBox','0 0 '+size+' '+size);
+  if(!o.small){
+    svg.appendChild(el('circle',{cx:cx,cy:cy,r:R+nr+16,class:'compass-ring'}));
+    // 方位
+    [['南',cx,cy-R-nr-30],['北',cx,cy+R+nr+30],['东',cx-R-nr-30,cy],['西',cx+R+nr+30,cy]].forEach(function(d){
+      svg.appendChild(el('text',{x:d[1],y:d[2],class:'dir-label','font-size':o.small?13:17},d[0]));
+    });
+  }
+  var ll=el('g',{});svg.appendChild(ll);
+  Object.keys(ZHI_LAYERS).forEach(function(lk){
+    if(!o.layers||!o.layers[lk])return;
+    var L=ZHI_LAYERS[lk];
+    L.pairs.forEach(function(p){
+      var pts=[p.a,p.b];
+      if(p.c!=null){
+        // 三支：三会画折线，三合/三刑闭合三角
+        pts=[p.a,p.b,p.c];
+        if(lk==='hui')pts=[p.a,p.b,p.c];
+      }
+      for(var i=0;i<pts.length-1;i++){
+        var p1=polar(cx,cy,R,ZHI_ANG[pts[i]]),p2=polar(cx,cy,R,ZHI_ANG[pts[i+1]]);
+        ll.appendChild(el('line',{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:L.color,
+          'stroke-width':o.small?1.8:2.6,opacity:o.small?.75:.78,
+          'stroke-dasharray':L.dash?(o.small?'4 4':'7 6'):'','stroke-linecap':'round'}));
+      }
+      if(p.c!=null&&lk!=='hui'){
+        var p1=polar(cx,cy,R,ZHI_ANG[p.c]),p2=polar(cx,cy,R,ZHI_ANG[p.a]);
+        ll.appendChild(el('line',{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:L.color,'stroke-width':o.small?1.8:2.6,opacity:.78,'stroke-linecap':'round'}));
+      }
+    });
+  });
+  ZHI.forEach(function(z,i){
+    var p=polar(cx,cy,R,ZHI_ANG[i]),col=WX[z.wx].color;
+    var gg=el('g',{class:'node-group'});
+    var c=el('circle',{cx:p.x,cy:p.y,r:nr,fill:col,class:'node-circle'+(o.picked===i?' picked':'')});
+    if(o.picked!=null&&o.picked!==i)c.setAttribute('opacity','.32');
+    gg.appendChild(c);
+    gg.appendChild(el('text',{x:p.x,y:p.y-(o.small?10:14),style:'font-size:'+(o.small?15:22)+'px;text-anchor:middle;dominant-baseline:central'},z.icon));
+    gg.appendChild(el('text',{x:p.x,y:p.y+(o.small?10:14),class:'node-char',style:'font-size:'+(o.small?13:19)+'px'},z.c));
+    if(o.onPick)gg.addEventListener('click',function(){o.onPick(i)});
+    svg.appendChild(gg);
+  });
+}
+
+/* ==================== 模块三 · 地支关系盘控制 ==================== */
+(function(){
+  var layers={hui:true},picked=null;
+  function redraw(){
+    renderZhiDisk(document.getElementById('zhiSvg'),{layers:layers,picked:picked,onPick:function(i){picked=(picked===i)?null:i;redraw()}});
+    renderDetail();
+  }
+  document.querySelectorAll('[data-zl]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.zl;layers[k]=!layers[k];b.classList.toggle('on',layers[k]);redraw();
+    });
+  });
+  function renderDetail(){
+    var box=document.getElementById('zhiDetail');
+    if(picked==null){box.innerHTML='<div class="hint" style="margin:0">点击任一地支，这里显示字义意象、五行阴阳、墓库与藏干。</div>';return}
+    var z=ZHI[picked],col=WX[z.wx].color;
+    var ku={1:'金库',4:'水库',7:'木库',10:'火库'}[picked];
+    var html='<div class="detail-title"><span class="detail-char" style="background:'+col+'">'+z.c+'</span>'+
+      '<span><span class="detail-name">'+z.c+' · 属'+WX[z.wx].char+(z.yy==='yang'?' · 阳支':' · 阴支')+'</span><br>'+
+      '<span class="detail-sub">取义「'+z.mean+'」：'+z.img+' · 生肖'+z.animal+(ku?' · '+ku:'')+'</span></span></div>';
+    // 藏干
+    var cg=ZHI_CANGGAN[picked];
+    html+='<div class="rel-list"><div class="rel-item" style="flex-direction:column;align-items:stretch;gap:5px">'+
+      '<span style="font-size:12.5px;color:var(--ink-3);font-family:var(--sans)">地支藏干（本气 / 中气 / 余气）</span><span>'+
+      cg.map(function(x,i){return '<span style="margin-right:12px"><b class="'+(x[0].match(/木|火|土|金|水/)?'c-'+{木:'mu',火:'huo',土:'tu',金:'jin',水:'shui'}[x[0].match(/木|火|土|金|水/)[0]]:'')+'">'+x[0]+'</b> <span style="font-family:var(--sans);font-size:12px;color:var(--ink-3)">'+x[1]+'</span></span>'}).join('')+
+      '</span></div>';
+    // 该支在各图层中的关系
+    Object.keys(ZHI_LAYERS).forEach(function(lk){
+      ZHI_LAYERS[lk].pairs.forEach(function(p){
+        var ids=[p.a,p.b];if(p.c!=null)ids.push(p.c);
+        if(ids.indexOf(picked)>=0){
+          html+='<div class="rel-item"><span class="rel-tag" style="background:'+ZHI_LAYERS[lk].color+'">'+ZHI_LAYER_NAME[lk]+'</span>'+
+            '<span class="who" style="font-size:12.5px">'+p.name+'</span><span class="ex" style="font-size:12px">'+p.desc+'</span></div>';
+        }
+      });
+    });
+    html+='</div>';
+    box.innerHTML=html;
+  }
+  redraw();
+})();
+
+/* ==================== 模块四 · 干支纪年计算器 ==================== */
+(function(){
+  var input=document.getElementById('yearInput');
+  function mod(n,m){return ((n%m)+m)%m}
+  function go(){
+    var y=parseInt(input.value,10);
+    if(isNaN(y)){document.getElementById('resMeta').textContent='请输入有效年份';return}
+    var gi=mod(y-4,10),zi=mod(y-4,12);
+    var g=GAN[gi],z=ZHI[zi];
+    var rg=document.getElementById('resGan'),rz=document.getElementById('resZhi');
+    rg.textContent=g.c;rg.style.color=WX[g.wx].color;
+    rz.textContent=z.c;rz.style.color=WX[z.wx].color;
+    document.getElementById('resMeta').textContent=y+' 年 · '+g.c+z.c+'年 · 生肖'+z.animal;
+    renderGanDisk(document.getElementById('miniGan'),{small:true,size:420,R:146,nr:31,picked:gi});
+    renderZhiDisk(document.getElementById('miniZhi'),{small:true,size:420,R:136,nr:33,picked:zi,layers:{}});
+  }
+  document.getElementById('calcGo').addEventListener('click',go);
+  input.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+  go();
+})();
+
+
+/* ===== 顶层导航 ===== */
+var navBtns=document.querySelectorAll('.main-nav button');
+navBtns.forEach(function(b){
+ b.addEventListener('click',function(){
+  navBtns.forEach(function(x){x.classList.remove('active')});b.classList.add('active');
+  document.querySelectorAll('.pane').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('pane-'+b.dataset.pane).classList.add('active');
+  window.scrollTo({top:0});
+ });
+});
+
+
+/* ==================== 网页刷卡 ==================== */
+(function(){
+ var CARDS={"d1": [["八字中阳数多的人 / 阴数多的人，分别给人什么感觉？", "阳数多：豪爽奔放；阴数多：内敛温柔。"], ["「五行通天地」的下一句是？", "八卦定乾坤。"], ["<span class=\"mu\">木</span>主什么德？其性、其情如何？", "<span class=\"mu\">木</span>主仁；其性直，其情和。"], ["「<span class=\"mu\">木</span>曰____」？", "<span class=\"mu\">木</span>曰曲直。"], ["<span class=\"huo\">火</span>主什么德？其性、其情如何？", "<span class=\"huo\">火</span>主礼；其性急，其性恭。"], ["「<span class=\"huo\">火</span>曰____」？", "<span class=\"huo\">火</span>曰炎上。"], ["<span class=\"tu\">土</span>主什么德？其性、其情如何？", "<span class=\"tu\">土</span>主信；其性重，其性厚。"], ["「<span class=\"tu\">土</span>曰____」？", "<span class=\"tu\">土</span>曰稼穑。"], ["<span class=\"jin\">金</span>主什么德？其性、其情如何？", "<span class=\"jin\">金</span>主义；其性刚，其情烈。"], ["「<span class=\"jin\">金</span>曰____」？", "<span class=\"jin\">金</span>曰从革。"], ["<span class=\"shui\">水</span>主什么德？其性、其情如何？", "<span class=\"shui\">水</span>主智；其性聪，其性善。"], ["「<span class=\"shui\">水</span>曰____」？", "<span class=\"shui\">水</span>曰润下。"], ["<span class=\"mu\">木</span>气对应哪些行为状态？", "生发、思考、构思、阅读、新知吸收、长期规划"], ["<span class=\"huo\">火</span>气对应哪些行为状态？", "表达、输出、演讲、攻坚、主动推进、对外沟通"], ["<span class=\"tu\">土</span>气对应哪些行为状态？", "整理、复盘、统筹、琐事处理、沉淀消化、稳定执行"], ["<span class=\"jin\">金</span>气对应哪些行为状态？", "决断、筛选、取舍、精简、复盘纠错、理性思辨"], ["<span class=\"shui\">水</span>气对应哪些行为状态？", "静思、冥想、积累、钻研、深度钻研、休养生息"], ["「从革」是什么意思？", "兽皮治去其毛，革更之——<span class=\"jin\">金</span>有变革、改造之性。"], ["月令五行状态中，什么是「旺」？", "当令者为旺；正当月令，能量最盛。"], ["月令五行状态中，什么是「相」？", "我生者为相；旺所生，次旺相辅。"], ["月令五行状态中，什么是「休」？", "生我者为休；生旺者出力已毕，退休安歇。"], ["月令五行状态中，什么是「囚」？", "克我者为囚；克旺者反被制约，衰困。"], ["月令五行状态中，什么是「死」？", "我克者为死；旺所克，最衰无气。"], ["春<span class=\"mu\">木</span>当令时，五行的旺相休囚死分别是？", "<span class=\"mu\">木</span>旺、<span class=\"huo\">火</span>相、<span class=\"shui\">水</span>休、<span class=\"jin\">金</span>囚、<span class=\"tu\">土</span>死。"], ["干支关系中，什么是「生」？", "生我者为生"], ["干支关系中，什么是「泄」？", "我生者为泄"], ["干支关系中，什么是「克」？", "克我者为克"], ["干支关系中，什么是「耗」？", "我克者为耗"], ["干支关系中，什么是「助」？", "同我者为助"], ["以<span class=\"huo\">火</span>为日主，它的生、泄、克、耗、助分别是什么？", "生=<span class=\"mu\">木</span>（<span class=\"mu\">木</span>生<span class=\"huo\">火</span>）；泄=<span class=\"tu\">土</span>（<span class=\"huo\">火</span>生<span class=\"tu\">土</span>）；克=<span class=\"shui\">水</span>（<span class=\"shui\">水</span>克<span class=\"huo\">火</span>）；耗=<span class=\"jin\">金</span>（<span class=\"huo\">火</span>克<span class=\"jin\">金</span>）；助=<span class=\"huo\">火</span>（同我）。"], ["<span class=\"jin\">金</span>赖<span class=\"tu\">土</span>生，____。", "<span class=\"tu\">土</span>多<span class=\"jin\">金</span>埋"], ["<span class=\"tu\">土</span>赖<span class=\"huo\">火</span>生，____。", "<span class=\"huo\">火</span>多<span class=\"tu\">土</span>焦"], ["<span class=\"huo\">火</span>赖<span class=\"mu\">木</span>生，____。", "<span class=\"mu\">木</span>多<span class=\"huo\">火</span>炽"], ["<span class=\"mu\">木</span>赖<span class=\"shui\">水</span>生，____。", "<span class=\"shui\">水</span>多<span class=\"mu\">木</span>漂"], ["<span class=\"shui\">水</span>赖<span class=\"jin\">金</span>生，____。", "<span class=\"jin\">金</span>多<span class=\"shui\">水</span>浊"], ["<span class=\"jin\">金</span>能生<span class=\"shui\">水</span>，____。", "<span class=\"shui\">水</span>多<span class=\"jin\">金</span>沉"], ["<span class=\"jin\">金</span>能克<span class=\"mu\">木</span>，____。", "<span class=\"mu\">木</span>坚<span class=\"jin\">金</span>缺"], ["<span class=\"mu\">木</span>能克<span class=\"tu\">土</span>，____。", "<span class=\"tu\">土</span>重<span class=\"mu\">木</span>折"], ["<span class=\"tu\">土</span>能克<span class=\"shui\">水</span>，____。", "<span class=\"shui\">水</span>多<span class=\"tu\">土</span>流"], ["<span class=\"shui\">水</span>能克<span class=\"huo\">火</span>，____。", "<span class=\"huo\">火</span>炎<span class=\"shui\">水</span>灼"], ["<span class=\"huo\">火</span>能克<span class=\"jin\">金</span>，____。", "<span class=\"jin\">金</span>多<span class=\"huo\">火</span>熄"], ["强<span class=\"jin\">金</span>得<span class=\"shui\">水</span>，____（泄太过归中和）。", "方挫其锋"], ["强<span class=\"shui\">水</span>得<span class=\"mu\">木</span>，____（泄太过归中和）。", "方缓其势"], ["强<span class=\"mu\">木</span>得<span class=\"huo\">火</span>，____（泄太过归中和）。", "方泄其英"], ["强<span class=\"huo\">火</span>得<span class=\"tu\">土</span>，____（泄太过归中和）。", "方敛其焰"], ["强<span class=\"tu\">土</span>得<span class=\"jin\">金</span>，____（泄太过归中和）。", "方化其顽"]], "d2": [["天干「甲」的阴阳、五行与「在天 / 在地」意象？", "阳干属<span class=\"mu\">木</span>；在天为雷，在地为大树。主生发。"], ["天干「乙」的阴阳、五行与「在天 / 在地」意象？", "阴干属<span class=\"mu\">木</span>；在天为风，在地为花草。主创造。"], ["天干「丙」的阴阳、五行与「在天 / 在地」意象？", "阳干属<span class=\"huo\">火</span>；在天为日，在地为篝<span class=\"huo\">火</span>。"], ["天干「丁」的阴阳、五行与「在天 / 在地」意象？", "阴干属<span class=\"huo\">火</span>；在天为星，在地为烛<span class=\"huo\">火</span>。"], ["天干「戊」的阴阳、五行与「在天 / 在地」意象？", "阳干属<span class=\"tu\">土</span>；在天为霜，在地为山。主承载。"], ["天干「己」的阴阳、五行与「在天 / 在地」意象？", "阴干属<span class=\"tu\">土</span>；在天为气，在地为沃<span class=\"tu\">土</span>。主稳定。"], ["天干「庚」的阴阳、五行与「在天 / 在地」意象？", "阳干属<span class=\"jin\">金</span>；在天为雾，在地为矿。主变革。"], ["天干「辛」的阴阳、五行与「在天 / 在地」意象？", "阴干属<span class=\"jin\">金</span>；在天为月，在地为<span class=\"jin\">金</span>（珠玉）。"], ["天干「壬」的阴阳、五行与「在天 / 在地」意象？", "阳干属<span class=\"shui\">水</span>；在天为云，在地为海。主浩荡。"], ["天干「癸」的阴阳、五行与「在天 / 在地」意象？", "阴干属<span class=\"shui\">水</span>；在天为雨，在地为河（雨露）。主沉淀。"], ["甲己合化什么？是什么合？", "合化<span class=\"tu\">土</span>；中正之合（农具武器，稳中求进）。"], ["「中正之合」是哪两个天干相合？", "甲己合化<span class=\"tu\">土</span>。"], ["乙庚合化什么？是什么合？", "合化<span class=\"jin\">金</span>；仁义之合（剑刃剑穗，刚柔并济）。"], ["「仁义之合」是哪两个天干相合？", "乙庚合化<span class=\"jin\">金</span>。"], ["丙辛合化什么？是什么合？", "合化<span class=\"shui\">水</span>；威制之合（法治德治，上传下达）。"], ["「威制之合」是哪两个天干相合？", "丙辛合化<span class=\"shui\">水</span>。"], ["丁壬合化什么？是什么合？", "合化<span class=\"mu\">木</span>；淫匿之合（星辰大海，浪漫多情）。"], ["「淫匿之合」是哪两个天干相合？", "丁壬合化<span class=\"mu\">木</span>。"], ["戊癸合化什么？是什么合？", "合化<span class=\"huo\">火</span>；无情之合（理想现实，知行合一）。"], ["「无情之合」是哪两个天干相合？", "戊癸合化<span class=\"huo\">火</span>。"], ["甲庚冲的意象？", "利斧与巨<span class=\"mu\">木</span> —— 毁灭与新生"], ["乙辛冲的意象？", "绣花针与常春藤 —— 灵性与规训"], ["丙壬冲的意象？", "烈阳与深海 —— 喧嚣与孤独"], ["丁癸冲的意象？", "烛<span class=\"huo\">火</span>与雨雾 —— 希望与虚无"], ["天干合化需要哪些条件？", "①天干相邻；②地支有根（月令对应合化后的属性）；③无克耗泄。"], ["什么是「合绊」？有哪些形式？", "合而不化反成牵绊；有遥合、妒合、偷合、争合。"], ["年干如何由公历年份推算？", "看年份尾数：甲4 乙5 丙6 丁7 戊8 己9 庚0 辛1 壬2 癸3（十年一循环）。"], ["年干算法中，甲为何对应数字 4？", "公元 4 年为甲子年，故甲对应 4。"], ["2026 年的年干是什么？", "尾数 6 → 丙。"]], "d3": [["地支「子」取何义？意象是什么？生肖？", "取义「兹」：万物滋养生发；生肖鼠。"], ["地支「丑」取何义？意象是什么？生肖？", "取义「纽」：冬春交替，向死而生；生肖牛。"], ["地支「寅」取何义？意象是什么？生肖？", "取义「演」：万物开始生长；生肖虎。"], ["地支「卯」取何义？意象是什么？生肖？", "取义「冒」：万物冒<span class=\"tu\">土</span>而出；生肖兔。"], ["地支「辰」取何义？意象是什么？生肖？", "取义「震」：万物震动生长；生肖龙。"], ["地支「巳」取何义？意象是什么？生肖？", "取义「已」：万物初长成；生肖蛇。"], ["地支「午」取何义？意象是什么？生肖？", "取义「仵」：夏秋交替，生生不息；生肖马。"], ["地支「未」取何义？意象是什么？生肖？", "取义「味」：万物已有滋味；生肖羊。"], ["地支「申」取何义？意象是什么？生肖？", "取义「身」：万物形体已成；生肖猴。"], ["地支「酉」取何义？意象是什么？生肖？", "取义「秀」：万物成熟丰盈，稻谷飘香；生肖鸡。"], ["地支「戌」取何义？意象是什么？生肖？", "取义「灭」：万物重归于<span class=\"tu\">土</span>；生肖狗。"], ["地支「亥」取何义？意象是什么？生肖？", "取义「核」：成种收获，重归轮回；生肖猪。"], ["三会局「寅卯辰」会成什么？", "会<span class=\"mu\">木</span>局；春季，新生、开拓、仁爱。"], ["三会局「巳午未」会成什么？", "会<span class=\"huo\">火</span>局；夏季，文明、热烈、礼信。"], ["三会局「申酉戌」会成什么？", "会<span class=\"jin\">金</span>局；秋季，肃杀、变革、义气。"], ["三会局「亥子丑」会成什么？", "会<span class=\"shui\">水</span>局；冬季，收藏、沉潜、智慧。"], ["三会局（方合）有何特点？", "大势已成；不必相邻，大运流年可参与；三支齐全、顺序不可颠倒；得局则吉，破局则凶。"], ["三合局「申子辰」合成什么？", "合<span class=\"shui\">水</span>局；主智，冷静善谋、流动变通。"], ["三合局「亥卯未」合成什么？", "合<span class=\"mu\">木</span>局；主仁，包容有韧性、善协作。"], ["三合局「寅午戌」合成什么？", "合<span class=\"huo\">火</span>局；主礼，热情外向、行动力强。"], ["三合局「巳酉丑」合成什么？", "合<span class=\"jin\">金</span>局；主义，刚毅果断、重纪律。"], ["三合局由哪三种位置组成？什么是半三合、拱合？", "长生→帝旺→墓库三支合局；含帝旺的两两组合为半三合，不含帝旺的两两组合为拱合。"], ["子丑合化什么？", "合化<span class=\"tu\">土</span>；泥<span class=\"shui\">水</span>之合·克合，内敛深沉。"], ["寅亥合化什么？", "合化<span class=\"mu\">木</span>；义合，滋养生发。"], ["戌卯合化什么？", "合化<span class=\"huo\">火</span>；<span class=\"mu\">木</span>入<span class=\"huo\">火</span>库·克合，浓烈上头。"], ["辰酉合化什么？", "合化<span class=\"jin\">金</span>；龙凤之合·生合，契约利益。"], ["巳申合化什么？", "合化<span class=\"shui\">水</span>；刑合，相爱相杀。"], ["午未合化什么？", "合化<span class=\"tu\">土</span>；文明之合·争合，左右逢源。"], ["子午冲主什么？", "桃花冲，冲突反复、忽冷忽热"], ["丑未冲主什么？", "湿<span class=\"tu\">土</span>燥<span class=\"tu\">土</span>，家庭琐事、财务积蓄"], ["寅申冲主什么？", "驿马冲，奔波折腾、竞合博弈"], ["卯酉冲主什么？", "桃花冲，口舌是非、感情分合"], ["辰戌冲主什么？", "墓库冲，翻篇重启、结构调整"], ["巳亥冲主什么？", "跨界远行，理想碰撞"], ["六冲的力量对比与吉凶如何判断？", "主克者力强、月令之位力强、党朋多力强；喜神冲败则凶，凶神冲败反吉；逢冲必动。"], ["相刑「寅巳申」是什么刑？", "无恩之刑：寅生巳、巳克申、申反克寅；生克交织恩怨多。"], ["相刑「丑戌未」是什么刑？", "恃势之刑：丑刑戌、戌刑未、未刑丑；性格不合纷争起。"], ["相刑「子卯」是什么刑？", "无礼之刑：子刑卯、卯刑子；溺爱引逆反，一味索取付出的消耗关系。"], ["四个自刑分别是？为何<span class=\"mu\">木</span>无自刑？", "亥亥（滥）、午午（躁）、辰辰（绕）、酉酉（挑）；<span class=\"mu\">木</span>主生发、向外生长，故不自刑。"], ["子未相害主什么？", "羊鼠相逢，希望落空"], ["丑午相害主什么？", "阴<span class=\"huo\">火</span>入湿库，貌合神离（牛头不对马嘴）"], ["寅巳相害主什么？", "刑中带害，<span class=\"mu\">木</span><span class=\"huo\">火</span>自燃、傲慢不服"], ["卯辰相害主什么？", "青草遍野，边界践踏"], ["申亥相害主什么？", "<span class=\"shui\">水</span>多<span class=\"jin\">金</span>沉，易犯小人"], ["酉戌相害主什么？", "鸡犬不宁，燥<span class=\"tu\">土</span>脆<span class=\"jin\">金</span>、明嘲暗讽"], ["六害如何产生？怎样化解？", "六合六冲交叉派生产物；合能解害，冲能破害；害而觉醒或害而受创。"], ["子酉相破主什么？", "反复拉扯，生性多疑"], ["丑辰相破主什么？", "财库受损，心气不顺"], ["寅亥相破主什么？", "合中带破，无恩之合、相互拆台"], ["卯午相破主什么？", "相爱相杀，好心办错事"], ["巳申相破主什么？", "破中带刑，互相算计、勾心斗角"], ["未戌相破主什么？", "刑中相破，心思深沉、名声扫地"], ["子巳暗合对应哪个天干合？", "对应戊癸合；<span class=\"shui\">水</span><span class=\"huo\">火</span>相绝：感情纠纷，恩绝义断。"], ["寅午暗合对应哪个天干合？", "对应甲己合；暗恋私情，貌离神合。"], ["巳酉暗合对应哪个天干合？", "对应丙辛合；暗恋私情。"], ["卯申暗合对应哪个天干合？", "对应乙庚合；<span class=\"mu\">木</span><span class=\"jin\">金</span>相绝：交通事故，出行不顺。"], ["寅丑暗合对应哪个天干合？", "对应甲己合；暗恋私情。"], ["亥午暗合对应哪个天干合？", "对应甲己合；<span class=\"huo\">火</span><span class=\"shui\">水</span>相绝：口舌是非，文书纠纷。"], ["暗合（六合四绝）有什么特点？", "看不见的合：暗恋私情、貌离神合/貌合神离、口蜜腹剑；藏干有合化、合中带绝、本气相克；有合论合，无合论绝，位置不相邻。"], ["四绝中「酉寅」主什么？", "<span class=\"jin\">金</span><span class=\"mu\">木</span>相绝：钱财勒索，陷害背刺。"], ["四墓库分别是哪四个地支？", "<span class=\"jin\">金</span>库丑（阴）、<span class=\"mu\">木</span>库未、<span class=\"shui\">水</span>库辰（阴）、<span class=\"huo\">火</span>库戌。"], ["什么是湿<span class=\"tu\">土</span>、燥<span class=\"tu\">土</span>？", "<span class=\"jin\">金</span><span class=\"shui\">水</span>本属阴，<span class=\"tu\">土</span>中含<span class=\"shui\">水</span>汽为湿<span class=\"tu\">土</span>（丑、辰）；<span class=\"mu\">木</span><span class=\"huo\">火</span>本属阳，<span class=\"tu\">土</span>中含<span class=\"huo\">火</span>气为燥<span class=\"tu\">土</span>（未、戌）。"], ["年支如何推算？", "年份除以 12 取余数：子4 丑5 寅6 卯7 辰8 巳9 午10 未11 申0 酉1 戌2 亥3。"], ["2026 年的年支是什么？", "2026÷12=168 余 10 → 午；2026 为丙午年。"], ["地支子的藏干（本/中/余气）？", "癸<span class=\"shui\">水</span> 100%"], ["地支卯的藏干（本/中/余气）？", "乙<span class=\"mu\">木</span> 100%"], ["地支午的藏干（本/中/余气）？", "丁<span class=\"huo\">火</span> 70%、己<span class=\"tu\">土</span> 30%"], ["地支酉的藏干（本/中/余气）？", "辛<span class=\"jin\">金</span> 100%"], ["地支丑的藏干（本/中/余气）？", "己<span class=\"tu\">土</span>60%、癸<span class=\"shui\">水</span>30%、辛<span class=\"jin\">金</span>10%"], ["地支辰的藏干（本/中/余气）？", "戊<span class=\"tu\">土</span>60%、乙<span class=\"mu\">木</span>30%、癸<span class=\"shui\">水</span>10%"], ["地支未的藏干（本/中/余气）？", "己<span class=\"tu\">土</span>60%、丁<span class=\"huo\">火</span>30%、乙<span class=\"mu\">木</span>10%"], ["地支戌的藏干（本/中/余气）？", "戊<span class=\"tu\">土</span>60%、辛<span class=\"jin\">金</span>30%、丁<span class=\"huo\">火</span>10%"]]};
+ var DECKS=[['all','全部卡片'],['d1','壹 · 阴阳五行'],['d2','贰 · 十天干'],['d3','叁 · 十二地支']];
+ var LSKEY='bazi_study_v1';
+ function loadStore(){try{return JSON.parse(localStorage.getItem(LSKEY))||{}}catch(e){return{}}}
+ function saveStore(s){localStorage.setItem(LSKEY,JSON.stringify(s))}
+ var store=loadStore();
+ function flat(dk){
+  var ids=[];
+  var keys= dk==='all'?['d1','d2','d3']:[dk];
+  keys.forEach(function(k){CARDS[k].forEach(function(c,i){ids.push(k+'_'+i)})});
+  return ids;
+ }
+ function getCard(id){var p=id.split('_');return CARDS[p[0]][parseInt(p[1],10)]}
+ function isDue(id){var s=store[id];if(!s)return true;return s.due<=Date.now()}
+ function dueCount(dk){return flat(dk).filter(isDue).length}
+ function renderDecks(){
+  var g=document.getElementById('deckGrid');g.innerHTML='';
+  DECKS.forEach(function(d){
+   var total=flat(d[0]).length,due=dueCount(d[0]);
+   var b=document.createElement('button');b.className='deck-card';
+   b.innerHTML=d[1]+'<span class="dc-count">共 '+total+' 张</span><span class="dc-due">待学/到期 '+due+' 张</span>';
+   b.addEventListener('click',function(){start(d[0],false)});
+   g.appendChild(b);
+  });
+ }
+ document.getElementById('resetProgress').addEventListener('click',function(){
+  if(confirm('确定清空本机全部学习进度？')){store={};saveStore(store);renderDecks()}
+ });
+ var queue=[],again=[],done=0,total=0,cur=null,stats={again:0,good:0,easy:0},curDeck='';
+ function start(dk,allMode){
+  curDeck=dk;
+  var ids=flat(dk);
+  queue= allMode? ids.slice() : ids.filter(isDue);
+  // 洗牌
+  for(var i=queue.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=queue[i];queue[i]=queue[j];queue[j]=t}
+  again=[];done=0;total=queue.length;stats={again:0,good:0,easy:0};
+  if(queue.length===0){showDone(true);return}
+  document.getElementById('deckPick').style.display='none';
+  document.getElementById('doneScreen').style.display='none';
+  document.getElementById('studySession').style.display='block';
+  var dn=DECKS.filter(function(d){return d[0]===dk})[0][1];
+  document.getElementById('sdName').textContent=dn;
+  next();
+ }
+ function next(){
+  if(cur=again.shift()){}
+  else cur=queue.shift();
+  if(!cur){showDone(false);return}
+  var c=getCard(cur);
+  document.getElementById('faceFront').innerHTML=c[0];
+  document.getElementById('faceBack').innerHTML=c[1];
+  var fc=document.getElementById('flashcard');fc.classList.remove('flipped');
+  document.getElementById('studyActions').style.display='none';
+  document.getElementById('flipHint').style.display='block';
+  updateProg();
+ }
+ function updateProg(){
+  var rem=queue.length+again.length+(cur?1:0);
+  var finished=total+stats.again-rem;
+  var pct= total? Math.max(0,Math.min(100,Math.round(finished/total*100))):0;
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('sdProg').textContent='剩余 '+rem;
+ }
+ function flip(){
+  var fc=document.getElementById('flashcard');
+  if(!fc.classList.contains('flipped')){fc.classList.add('flipped');
+   document.getElementById('studyActions').style.display='flex';
+   document.getElementById('flipHint').style.display='none'}
+ }
+ document.getElementById('flashcard').addEventListener('click',flip);
+ function schedule(rate){
+  var id=cur,s=store[id]||{ef:2.3,iv:0,reps:0,lapses:0};
+  var now=Date.now();
+  if(rate==='again'){s.lapses++;s.iv=0;s.ef=Math.max(1.3,s.ef-.2);s.due=now}
+  else{
+   s.reps++;
+   if(s.iv===0)s.iv= rate==='easy'?4:1;
+   else s.iv=Math.max(1,Math.round(s.iv*s.ef*(rate==='easy'?1.3:1)));
+   s.ef=Math.min(3,s.ef+(rate==='easy'?.15:.05));
+   s.due=now+s.iv*86400000;
+  }
+  store[id]=s;saveStore(store);
+ }
+ function rate(r){
+  if(!document.getElementById('flashcard').classList.contains('flipped'))return;
+  stats[r]++;
+  if(r==='again'){schedule('again');again.push(cur)}
+  else schedule(r);
+  done++;next();
+ }
+ document.getElementById('rateAgain').addEventListener('click',function(){rate('again')});
+ document.getElementById('rateGood').addEventListener('click',function(){rate('good')});
+ document.getElementById('rateEasy').addEventListener('click',function(){rate('easy')});
+ document.getElementById('quitStudy').addEventListener('click',function(){
+  document.getElementById('studySession').style.display='none';
+  document.getElementById('deckPick').style.display='block';renderDecks()});
+ document.addEventListener('keydown',function(e){
+  if(document.getElementById('studySession').style.display==='none')return;
+  if(e.key===' '){e.preventDefault();flip()}
+  else if(e.key==='1')rate('again');
+  else if(e.key==='2'||e.key==='Enter')rate('good');
+  else if(e.key==='3')rate('easy')});
+ function showDone(empty){
+  document.getElementById('studySession').style.display='none';
+  var box=document.getElementById('doneScreen');box.style.display='block';
+  if(empty){
+   box.innerHTML='<div class="done-box"><h3>暂无到期卡片</h3><p class="ds">这个牌组的卡片都还没到复习时间。</p>'+
+   '<div class="done-actions"><button class="primary" id="dAll">整组重学一遍</button><button id="dBack">返回选组</button></div></div>';
+  }else{
+   var learned=stats.good+stats.easy;
+   box.innerHTML='<div class="done-box"><h3>本轮完成</h3><p class="ds">共学习 <b>'+(total+stats.again)+'</b> 卡次<br>'+
+   '认识/简单 <b>'+learned+'</b> · 不认识重学 <b>'+stats.again+'</b></p>'+
+   '<div class="done-actions"><button class="primary" id="dAll">整组再重学一遍</button><button id="dBack">返回选组</button></div></div>';
+  }
+  var a=document.getElementById('dAll');if(a)a.addEventListener('click',function(){box.style.display='none';start(curDeck,true)});
+  document.getElementById('dBack').addEventListener('click',function(){box.style.display='none';
+   document.getElementById('deckPick').style.display='block';renderDecks()});
+ }
+ renderDecks();
+})();
+
+</script>
+</body>
+</html>
