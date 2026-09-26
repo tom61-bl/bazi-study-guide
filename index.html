@@ -296,23 +296,86 @@ body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-heig
 @media(max-width:640px){.deck-grid{grid-template-columns:1fr}.integral-head h1{font-size:26px}
  .study-actions{flex-direction:column}.study-actions button{max-width:none}}
 
+
+/* ===== 五行转化世界 ===== */
+.world-wrap{max-width:1120px;margin:28px auto 40px}
+.world-hero{text-align:center;margin-bottom:20px}
+.world-hero h2{font-size:27px;font-weight:900;letter-spacing:.12em}
+.world-hero p{font-family:var(--sans);font-size:13px;color:var(--ink-2);margin-top:7px;letter-spacing:.05em}
+.world-stage{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start}
+.world-svg-box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;position:relative}
+.world-svg-box svg{width:100%;height:auto;display:block;touch-action:none}
+.world-side{display:flex;flex-direction:column;gap:12px}
+.world-controls{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.world-btn{font-family:var(--sans);font-size:13px;padding:11px 6px;border-radius:6px;border:1px solid var(--line);
+ background:var(--card);color:var(--ink);cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:5px}
+.world-btn:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+.world-btn.primary{background:var(--cinnabar);color:#fff;border-color:var(--cinnabar)}
+.world-btn.primary:hover{background:var(--cinnabar-d);color:#fff}
+.world-principle{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:17px 18px;min-height:150px;transition:.3s}
+.world-principle .wp-label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;color:var(--cinnabar);margin-bottom:8px}
+.world-principle .wp-title{font-size:18px;font-weight:700;margin-bottom:7px;letter-spacing:.05em}
+.world-principle .wp-text{font-size:13.5px;color:var(--ink-2);line-height:1.85}
+.world-tip{font-family:var(--sans);font-size:11.5px;color:var(--ink-3);text-align:center;line-height:1.8;
+ background:var(--paper-2);border-radius:6px;padding:10px 12px}
+.wx-node{cursor:grab;user-select:none}
+.wx-node.dragging{cursor:grabbing}
+.wx-node circle{transition:stroke-width .2s,filter .2s}
+.wx-node:hover circle{filter:brightness(1.08)}
+.wx-flow{fill:none;stroke-width:4;stroke-linecap:round;opacity:0;stroke-dasharray:14 9;pointer-events:none}
+.wx-flow.show{opacity:.82;animation:wxflow 1.1s linear infinite}
+@keyframes wxflow{to{stroke-dashoffset:-46}}
+.wx-pulse{transform-origin:center;transform-box:fill-box;animation:wxpulse .85s ease}
+@keyframes wxpulse{0%{transform:scale(1)}35%{transform:scale(1.14)}100%{transform:scale(1)}}
+.wx-label{font-family:var(--sans);font-size:12px;fill:var(--ink-3);letter-spacing:.15em}
+@media(max-width:880px){.world-stage{grid-template-columns:1fr}.world-controls{grid-template-columns:1fr 1fr 1fr}}
+
 </style>
 </head>
 <body>
 <header class="integral-head">
  <div class="inner">
   <h1>八字一体化学习</h1>
-  <div class="sub">读笔记 · 玩罗盘 · 刷卡片</div>
+  <div class="sub">玩模型 · 读笔记 · 刷卡片</div>
   <nav class="main-nav">
-   <button class="active" data-pane="notes"><span class="n">壹</span>基础笔记</button>
-   <button data-pane="inter"><span class="n">贰</span>互动图解</button>
-   <button data-pane="cards"><span class="n">叁</span>卡片复习</button>
+   <button class="active" data-pane="world"><span class="n">壹</span>五行世界</button>
+   <button data-pane="notes"><span class="n">贰</span>基础笔记</button>
+   <button data-pane="inter"><span class="n">叁</span>互动图解</button>
+   <button data-pane="cards"><span class="n">肆</span>卡片复习</button>
   </nav>
  </div>
 </header>
 
 <main>
- <section class="pane active" id="pane-notes">
+ <section class="pane active" id="pane-world">
+ <div class="wrap">
+  <div class="world-wrap">
+   <div class="world-hero">
+    <h2>五行转化世界</h2>
+    <p>五行不是五个字，是自然界能量的转化链。拖动一个元素到另一个上，看看会发生什么。</p>
+   </div>
+   <div class="world-stage">
+    <div class="world-svg-box">
+     <svg id="worldSvg" viewBox="0 0 600 600" aria-label="五行转化盘"></svg>
+    </div>
+    <div class="world-side">
+     <div class="world-controls">
+      <button class="world-btn primary" id="playSheng">▶ 播放相生链</button>
+      <button class="world-btn" id="playKe">▶ 播放相克链</button>
+      <button class="world-btn" id="resetWorld">重置画面</button>
+     </div>
+     <div class="world-principle" id="wpBox">
+      <div class="wp-label">自然原理</div>
+      <div class="wp-title" id="wpTitle">等待你的实验</div>
+      <div class="wp-text" id="wpText">拖动任意元素到另一个元素上，或点击上方按钮播放转化链。每一条关系，都有它在自然界中的理由。</div>
+     </div>
+     <div class="world-tip">相生：木→火→土→金→水→木（能量转化）<br>相克：木→土→水→火→金→木（相互制约）</div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+ <section class="pane" id="pane-notes">
   <div class="wrap">
    <div class="note-anchors">
     <a href="#ch1">壹 · 阴阳五行</a><a href="#ch2">贰 · 十天干</a><a href="#ch3">叁 · 十二地支</a>
@@ -1495,6 +1558,140 @@ navBtns.forEach(function(b){
    document.getElementById('deckPick').style.display='block';renderDecks()});
  }
  renderDecks();
+})();
+
+
+/* ===== 五行转化世界 ===== */
+(function(){
+ var svg=document.getElementById('worldSvg');
+ if(!svg)return;
+ var NS='http://www.w3.org/2000/svg';
+ var POS={
+  mu:{x:110,y:300,icon:'\u{1F333}',char:'木',virtue:'仁',nature:'树木，主生发'},
+  huo:{x:300,y:105,icon:'\u{1F525}',char:'火',virtue:'礼',nature:'火焰，主炎上'},
+  tu:{x:300,y:300,icon:'\u{26F0}',char:'土',virtue:'信',nature:'大地，主承载'},
+  jin:{x:490,y:300,icon:'\u{1FA99}',char:'金',virtue:'义',nature:'金属，主肃杀'},
+  shui:{x:300,y:495,icon:'\u{1F4A7}',char:'水',virtue:'智',nature:'流水，主润下'}
+ };
+ var COLOR={mu:'#3f8f6b',huo:'#c44532',tu:'#c29a3e',jin:'#8d8674',shui:'#35587d'};
+ var SHENG=[
+  ['mu','huo','树木可以燃烧，火由木而生。'],
+  ['huo','tu','火燃尽成灰烬，归于土中。'],
+  ['tu','jin','金属矿石蕴藏于土壤之中。'],
+  ['jin','shui','金属在清晨冷凝，表面凝出水珠。'],
+  ['shui','mu','水滋润树木，使其生长。']
+ ];
+ var KE=[
+  ['mu','tu','树根穿破土壤，向深处生长。'],
+  ['tu','shui','堤坝（土）阻挡水流的去路。'],
+  ['shui','huo','水浇灭火焰，使其熄灭。'],
+  ['huo','jin','烈火熔化金属，改变其形。'],
+  ['jin','mu','斧头（金）砍伐树木。']
+ ];
+ var lines={},nodes={},origPos={};
+ function el(tag,attrs){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);return e;}
+ // 背景方位圈
+ svg.appendChild(el('circle',{cx:300,cy:300,r:240,fill:'none',stroke:'#d8cdb4','stroke-width':1,'stroke-dasharray':'4 6'}));
+ svg.appendChild(el('circle',{cx:300,cy:300,r:120,fill:'none',stroke:'#d8cdb4','stroke-width':1,'stroke-dasharray':'4 6'}));
+ [['东·木',55,305],['南·火',300,48],['西·金',545,305],['北·水',300,558]].forEach(function(d){
+  var t=el('text',{x:d[1],y:d[2],'text-anchor':'middle','class':'wx-label'});t.textContent=d[0];svg.appendChild(t);
+ });
+ // 预画关系线
+ function addLine(a,b,color,key){
+  var l=el('line',{x1:POS[a].x,y1:POS[a].y,x2:POS[b].x,y2:POS[b].y,stroke:color,'class':'wx-flow'});
+  svg.appendChild(l);lines[key]=l;
+ }
+ SHENG.forEach(function(s,i){addLine(s[0],s[1],COLOR[s[0]],'s_'+i);});
+ KE.forEach(function(k,i){addLine(k[0],k[1],'#b3402b','k_'+i);});
+ // 画节点
+ Object.keys(POS).forEach(function(k){
+  var p=POS[k];origPos[k]={x:p.x,y:p.y};
+  var g=el('g',{'class':'wx-node','data-k':k,transform:'translate('+p.x+','+p.y+')'});
+  g.appendChild(el('circle',{cx:0,cy:0,r:46,fill:COLOR[k]+'22',stroke:COLOR[k],'stroke-width':3}));
+  var ic=el('text',{x:0,y:-6,'text-anchor':'middle','font-size':'26'});ic.textContent=p.icon;g.appendChild(ic);
+  var ch=el('text',{x:0,y:22,'text-anchor':'middle','font-size':'18','font-weight':'700',fill:COLOR[k]});ch.textContent=p.char;g.appendChild(ch);
+  svg.appendChild(g);nodes[k]=g;
+ });
+ var wpTitle=document.getElementById('wpTitle'),wpText=document.getElementById('wpText');
+ function showPrinciple(title,text){wpTitle.textContent=title;wpText.textContent=text;}
+ function resetLines(){Object.keys(lines).forEach(function(k){lines[k].classList.remove('show');});
+  Object.keys(nodes).forEach(function(k){nodes[k].classList.remove('wx-pulse');});}
+ function pulse(k){nodes[k].classList.remove('wx-pulse');void nodes[k].offsetWidth;nodes[k].classList.add('wx-pulse');}
+ // 播放链
+ var playing=false;
+ function playChain(arr,label){
+  if(playing)return;playing=true;resetLines();
+  var i=0;
+  function step(){
+   if(i>=arr.length){playing=false;
+    showPrinciple('完整'+label+'闭环','五行'+label+'是一个循环：能量不断转化、相互制约，生生不息。理解了闭环，就不必背顺序。');
+    return;}
+   var a=arr[i][0],b=arr[i][1],text=arr[i][2];
+   var key=(label==='相生'?'s_':'k_')+i;
+   lines[key].classList.add('show');pulse(b);
+   showPrinciple(POS[a].char+(label==='相生'?'生':'克')+POS[b].char,text);
+   i++;setTimeout(step,1500);
+  }
+  step();
+ }
+ document.getElementById('playSheng').addEventListener('click',function(){playChain(SHENG,'相生');});
+ document.getElementById('playKe').addEventListener('click',function(){playChain(KE,'相克');});
+ document.getElementById('resetWorld').addEventListener('click',function(){resetLines();
+  showPrinciple('等待你的实验','拖动任意元素到另一个元素上，或点击上方按钮播放转化链。');});
+ // 点击节点显示德性
+ Object.keys(nodes).forEach(function(k){
+  nodes[k].addEventListener('click',function(e){
+   if(justDragged)return;
+   showPrinciple(POS[k].char+' · 主'+POS[k].virtue,POS[k].nature+'。方位：'+({mu:'东',huo:'南',tu:'中',jin:'西',shui:'北'})[k]+'。');
+  });
+ });
+ // 拖拽实验
+ var drag=null,startX=0,startY=0,dx=0,dy=0,justDragged=false,moved=false;
+ function svgPoint(e){var r=svg.getBoundingClientRect();var cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+  var cy=(e.touches?e.touches[0].clientY:e.clientY)-r.top;return{x:cx/r.width*600,y:cy/r.height*600};}
+ Object.keys(nodes).forEach(function(k){
+  nodes[k].addEventListener('pointerdown',function(e){
+   e.preventDefault();drag=k;moved=false;
+   var pt=svgPoint(e);startX=pt.x;startY=pt.y;dx=0;dy=0;
+   nodes[k].classList.add('dragging');nodes[k].setPointerCapture(e.pointerId);
+  });
+  nodes[k].addEventListener('pointermove',function(e){
+   if(drag!==k)return;var pt=svgPoint(e);dx=pt.x-startX;dy=pt.y-startY;
+   if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;
+   nodes[k].setAttribute('transform','translate('+(origPos[k].x+dx)+','+(origPos[k].y+dy)+')');
+  });
+  nodes[k].addEventListener('pointerup',function(e){
+   if(drag!==k)return;nodes[k].classList.remove('dragging');
+   // 找最近目标
+   var target=null,minD=90;
+   Object.keys(POS).forEach(function(t){
+    if(t===k)return;var tx=origPos[t].x,ty=origPos[t].y;
+    var nx=origPos[k].x+dx,ny=origPos[k].y+dy;var d=Math.hypot(nx-tx,ny-ty);
+    if(d<minD){minD=d;target=t;}
+   });
+   // 归位
+   nodes[k].setAttribute('transform','translate('+origPos[k].x+','+origPos[k].y+')');
+   if(moved&&target){justDragged=true;setTimeout(function(){justDragged=false;},50);judge(k,target);}
+   drag=null;
+  });
+ });
+ function judge(a,b){
+  resetLines();
+  // 找关系
+  var sIdx=SHENG.findIndex(function(x){return x[0]===a&&x[1]===b;});
+  var kIdx=KE.findIndex(function(x){return x[0]===a&&x[1]===b;});
+  var sRev=SHENG.findIndex(function(x){return x[0]===b&&x[1]===a;});
+  var kRev=KE.findIndex(function(x){return x[0]===b&&x[1]===a;});
+  if(sIdx>=0){lines['s_'+sIdx].classList.add('show');pulse(b);
+   showPrinciple(POS[a].char+'生'+POS[b].char,SHENG[sIdx][2]);}
+  else if(kIdx>=0){lines['k_'+kIdx].classList.add('show');pulse(b);
+   showPrinciple(POS[a].char+'克'+POS[b].char,KE[kIdx][2]);}
+  else if(sRev>=0){lines['s_'+sRev].classList.add('show');pulse(a);
+   showPrinciple(POS[b].char+'生'+POS[a].char,SHENG[sRev][2]+'（所以 '+POS[a].char+' 被 '+POS[b].char+' 所生）。');}
+  else if(kRev>=0){lines['k_'+kRev].classList.add('show');pulse(a);
+   showPrinciple(POS[b].char+'克'+POS[a].char,KE[kRev][2]+'（所以 '+POS[a].char+' 被 '+POS[b].char+' 所克）。');}
+  else{showPrinciple(POS[a].char+' 与 '+POS[b].char,'二者没有直接的生克关系。五行中每个元素只直接生一个、克一个，其余通过链条间接影响。');}
+ }
 })();
 
 </script>
